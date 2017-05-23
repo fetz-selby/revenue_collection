@@ -1,7 +1,6 @@
 var mongoose = require('mongoose-fill'),
     Schema = mongoose.Schema,
-	bcrypt   = require('bcrypt-nodejs'),
-    Region  = require('./region');
+	bcrypt   = require('bcrypt-nodejs');
 
 var agentSchema = new Schema({
     firstname       : String,
@@ -43,17 +42,6 @@ agentSchema.methods.getRegion = function(cb){
         cb('ads');
     })
 }
-//agentSchema.virtual('region')
-//.get(function () {
-//   this.getRegion(function(region){
-////       return region;
-//   })
-//});
 
-agentSchema.fill('region', function(callback){
-    this.db.model('Region')
-        .findOne({'districts._id': this.district}, 'districts.$')
-        .exec(callback)
-})
 
 module.exports = mongoose.model('Agent', agentSchema);

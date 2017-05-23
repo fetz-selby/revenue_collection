@@ -1,7 +1,6 @@
 var express = require('express'),
     event = require('events').EventEmitter,
-    People = require('../models/people'),
-    Property = require('../models/property');
+    People = require('../models/people');
 
 var routes = function(){
 
@@ -40,42 +39,13 @@ var routes = function(){
             })
         }); 
 
-    peoplesRouter.route('/region/:id')
-        .get(function(req, res){
-            var regionId = req.params.id;
-            //Return all people in a region
-            Property.find({'location.region': regionId}, 'owners')
-            .populate('owners')
-            .then(function(properties){
-                var people = [];
-                for(var prop of properties){
-                    people.concat(prop.owners)
-                }
-                res.json({people: people});
-            })
-            .catch(function(err){
-                res.status(500).send(err)
-            })
-        }); 
+ 
 
     peoplesRouter.route('/district/:id')
         .get(function(req, res){
             var districtId = req.params.id;
             //Return all people in a districts
-            Property.find({'location.district': districtId}, 'owners')
-            .populate('owners')
-            .then(function(properties){
-                var people = [];
-                for(var prop of properties){
-                    for(var owner of prop.owners){
-                        people.push(owner);
-                    }
-                }
-                res.json({people: people});
-            })
-            .catch(function(err){
-                res.status(500).send(err)
-            })
+            
         }); 
 
     peoplesRouter.route('/:id')

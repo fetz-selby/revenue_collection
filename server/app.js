@@ -66,10 +66,9 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/eghana/esurvey/api/auth', authRoute.router);
-app.use('/eghana/esurvey/api/agents', agentsRoute.router);
-app.use('/eghana/esurvey/api/users', usersRoute.router);
-app.use('/eghana/esurvey/api/property', propertyRoute.router);
+app.use('/eghana/revenue/api/auth', authRoute.router);
+app.use('/eghana/revenue/api/agents', agentsRoute.router);
+app.use('/eghana/revenue/api/users', usersRoute.router);
 
 app.get('/eghana', function(req, res){
     res.status(200).send('Please check API documentation');
@@ -79,11 +78,11 @@ app.get('/', function(req, res){
     res.status(200).send('Please check API documentation');
 });
 
-app.get('/eghana/esurvey', function(req, res){
+app.get('/eghana/revenue', function(req, res){
     res.status(200).send('Please check API documentation');
 });
 
-app.get('/eghana/esurvey/api', function(req, res){
+app.get('/eghana/revenue/api', function(req, res){
     res.status(200).send('Please check API documentation');
 });
 
