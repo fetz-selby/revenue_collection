@@ -1,0 +1,126 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-view">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+
+      .container-align {
+        max-width: 400px;
+        margin: auto;
+      }
+
+      .container-align p, div, h1{text-align: center}
+
+       paper-input{
+        --paper-input-container-underline :{
+          background: var(--app-primary-color);
+        }
+
+        --paper-input-container-label-focus :{
+          color : var(--app-primary-color);
+        }
+
+        --paper-input-container-underline-focus: {
+          color : var(--app-primary-color);
+        };
+      }
+
+      paper-button {
+        background-color: var(--paper-blue-500);
+        color: white;
+
+        --paper-button-raised-keyboard-focus: {
+          background-color: var(--paper-blue-a200) !important;
+          color: white !important;
+        };
+      }
+
+      paper-button {
+        background-color: var(--paper-blue-400);
+      }
+
+      iron-icon{
+        color : var(--app-primary-color);
+      }
+
+    </style>
+
+    <iron-ajax id="member" method="GET" handle-as="json" on-response="_handleMemberResponse" debounce-duration="0" on-error="_onErrorMember"></iron-ajax>
+
+      <div class="container-align">
+        <br/>
+        <div class="circle">?</div>
+        <h1></h1>
+        <br/>
+        <p>
+          <paper-input label="Please Enter ID" value="{{user_id}}">
+            <iron-icon icon="icons:perm-identity" slot="prefix"></iron-icon>
+          </paper-input>
+        </p>
+        <br/>
+
+        <p>
+          <paper-button raised on-tap="_findHandler">find</paper-button>
+        </p>
+      </div>
+
+  </template>
+
+  <script>
+    class MyView extends Polymer.Element {
+      static get is() { return 'my-view'; }
+    
+      constructor(){
+        super();
+      }
+
+      static properties(){
+        return{
+
+        };
+      }
+
+      _findHandler(e){
+        console.log(this.user_id);
+        this.$.member.url = config.url+'/members/'+this.user_id;
+        this.$.member.generateRequest();
+      }
+
+      _handleMemberResponse(e){
+        if(e.detail.response && e.detail.response[0].isValid){
+          this.dispatchEvent(new CustomEvent('success', {data : e.detail.response[0]}));
+          console.log('Successful Member');
+        }else{
+          this.dispatchEvent(new CustomEvent('register', {}));
+          console.log('Fire Register');
+        }
+      }
+    }
+
+    window.customElements.define(MyView.is, MyView);
+  </script>
+</dom-module>
+f
