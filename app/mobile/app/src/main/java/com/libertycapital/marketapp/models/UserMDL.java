@@ -10,10 +10,11 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class UserMDL extends RealmObject {
-    @PrimaryKey
     @SerializedName("id")
+    @PrimaryKey
     private String id;
-    private String localId;
+    @SerializedName("_id")
+    private String webId;
     @SerializedName("firstname")
     private String firstName;
     @SerializedName("surname")
@@ -24,14 +25,32 @@ public class UserMDL extends RealmObject {
     private String phone;
     @SerializedName("district")
     private String districtMDL;
+    private String dateAdded;
+    private String dateModified;
 
-
-    public String getLocalId() {
-        return localId;
+    public String getDateAdded() {
+        return dateAdded;
     }
 
-    public void setLocalId(String localId) {
-        this.localId = localId;
+    public void setDateAdded(String dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public String getDateModified() {
+        return dateModified;
+    }
+
+    public void setDateModified(String dateMddified) {
+        this.dateModified = dateMddified;
+    }
+
+
+    public String getWebId() {
+        return webId;
+    }
+
+    public void setWebId(String webId) {
+        this.webId = webId;
     }
 
 

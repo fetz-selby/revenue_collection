@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -38,6 +39,8 @@ import com.libertycapital.marketapp.utils.VolleyRequests;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,6 +51,8 @@ import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmAsyncTask;
 import io.realm.RealmResults;
+
+import static android.R.attr.id;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -83,9 +88,17 @@ public class LoginFragment extends Fragment {
         mVolleyRequest = new VolleyRequests(getActivity());
         mRealm = Realm.getDefaultInstance();
         prefs = getActivity().getSharedPreferences(Constants.PREFS, Context.MODE_PRIVATE);
+        mProgressBar.setVisibility(View.INVISIBLE);
+        editTextUsername.addTextChangedListener(new LoginFragment.MyTextWatcher(editTextUsername));
+        editTextPassword.addTextChangedListener(new LoginFragment.MyTextWatcher(editTextPassword));
+
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyboard();
+                usernameError = GenUtils.isEmpty(editTextUsername, textInputLayoutUsername, "Enter your username");
+                passwordError = GenUtils.isEmpty(editTextPassword, textInputLayoutPassword, "Enter your password");
+
 
                 if (!(usernameError && passwordError)) {
                     Snackbar.make(v, "Login Error", Snackbar.LENGTH_LONG)
@@ -106,88 +119,85 @@ public class LoginFragment extends Fragment {
                             Log.d(TAG, result.toString());
                             try {
                                 String user = result.getString("success");
-                                String message = result.getString("message");
+                                final String message = result.getString("message");
                                 if (user.equals("true")) {
+                                    final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                                    final Date date = new Date();
 
-//                                    get data
+
+                                    realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
+                                        @Override
+                                        public void execute(Realm realm) {
+
 
 //
-//                                    public KauthUserMDL onSync() {
-//                                        try {
-//                                            if (this.blnIsNew){
-//                                                this.realmMLD = mRealm.createObject(KauthUserMDL.class);
-//                                                this.realmMLD.setLocalGuid(UUID.randomUUID().toString());
-//                                            }else{
-//                                                try{
-//                                                    this.realmMLD = mRealm.where(KauthUserMDL.class).equalTo(Constants.strColWebGuid, jsonItem.getString("pk")).findFirst();
-//                                                }catch (JSONException e){
-//                                                    Log.e("getUniqueWebRecod", e.getMessage());
-//                                                }
-//                                            }
-//
-//                                            Date dateJoined = GenUtils.string2Date(this.jsonItem.getString("date_joined"));
-//                                            if ( !(dateJoined == null) ) {
-//                                                this.realmMLD.setDateJoined(dateJoined);
-//                                            }
-//
-//                                            Date lastLogin = GenUtils.string2Date(this.jsonItem.getString("last_login"));
-//                                            if ( !(lastLogin == null) ) {
-//                                                this.realmMLD.setLastLogin(lastLogin);
-//                                            }
-//
-//                                            this.realmMLD.setWebGuid(this.jsonItem.getString("pk"));
-//                                            this.realmMLD.setIsActive(this.jsonItem.getBoolean("is_active"));
-//                                            this.realmMLD.setIsStaff(this.jsonItem.getBoolean("is_staff"));
-//                                            this.realmMLD.setUsername(this.jsonItem.getString("username"));
-//                                            this.realmMLD.setEmail(this.jsonItem.getString("email"));
-//
-//                                        } catch (Exception e) {
-//                                            Log.e(TAG, this.realmClass.getSimpleName() + "DraftObject: " + e.getMessage());
-//                                        }
-//                                        return this.realmMLD;
-//                                    }
-                                    Map<String, String> params = new HashMap<String, String>();
-                                    params.put("email", editTextUsername.getText().toString().trim());
-                                    params.put("password", editTextPassword.getText().toString().trim());
-                                    final UserMDL userMDL = new UserMDL();
+//                                            {"_id":"591082e6225a490004349316",
+//                                                    "district":"59091f695d0ba232bf920fbe",
+//                                                    "email":"agent@gmail.com",
+//                                                    "phone":"02484884499",
+//                                                    "surname":"Meulenteen",
+//                                                    "firstname":"Jen",
+//                                                    "__v":0,
+//                                                    "status":"A",
+//                                                    "modifiedDate":"2017-05-08T14:38:30.118Z",
+//                                                    "createdDate":"2017-05-08T14:38:30.118Z",
+//                                                    "identification":[],
+//                                                "id":"591082e6225a490004349316"}}
 
-                                  final RealmResults<UserMDL> users = mRealm.where(UserMDL.class).findAll();
-                                    users.size();
-                                    if (users.size() == 0) {
-                                        try {
 
-                                            userMDL.setId(result.getJSONObject("agent").get("id").toString());
-                                            userMDL.setFirstName(result.getJSONObject("agent").get("firstname").toString());
-                                            userMDL.setLastName(result.getJSONObject("agent").get("surname").toString());
-                                            userMDL.setEmail(result.getJSONObject("agent").get("email").toString());
-                                            userMDL.setDistrictMDL(result.getJSONObject("agent").get("district").toString());
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
+
+                                            // personal data
+                                            try {
+
+                                                final JSONObject agent = result.getJSONObject("agent");
+                                                UserMDL olduser = realm.where(UserMDL.class).equalTo("webId",agent.getString("id")).findFirst();
+                                                if (olduser ==null) {
+                                                    String id = UUID.randomUUID().toString();
+                                                    UserMDL userMDL = realm.createObject(UserMDL.class, id);
+                                                    userMDL.setWebId(agent.get("id").toString());
+                                                    userMDL.setEmail(agent.getString("email"));
+                                                    userMDL.setFirstName(agent.getString("firstname"));
+                                                    userMDL.setLastName(agent.getString("surname"));
+                                                    userMDL.setPhone(agent.getString("phone"));
+                                                    userMDL.setWebId(agent.getString("_id"));
+                                                    userMDL.setDistrictMDL(agent.getString("district"));
+                                                    userMDL.setDateAdded(agent.getString("createdDate"));
+                                                    userMDL.setDateModified(agent.getString("modifiedDate"));
+                                                }else{
+                                                    realm.copyToRealmOrUpdate(olduser);
+
+                                                }
+
+
+
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+
+
                                         }
-
-                                        realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
-                                            @Override
-                                            public void execute(Realm realm) {
-                                                realm.copyToRealmOrUpdate(userMDL);
-
+                                    }, new Realm.Transaction.OnSuccess() {
+                                        @Override
+                                        public void onSuccess() {
+                                            Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
+                                            RealmResults<UserMDL> r = mRealm.where(UserMDL.class)
+                                                    .findAll();
+                                            if (!r.isEmpty()){
+                                                Log.d("User total",String.valueOf(r.size()) );
+                                                Log.d("User content",String.valueOf(r.toString()) );
                                             }
-                                        }, new Realm.Transaction.OnSuccess() {
-                                            @Override
-                                            public void onSuccess() {
-                                                Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
 
-                                            }
-                                        }, new Realm.Transaction.OnError() {
-                                            @Override
-                                            public void onError(Throwable error) {
-                                                Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
-                                                Log.d("REal error", error.getMessage());
 
-                                            }
-                                        });
 
-                                    }
+                                        }
+                                    }, new Realm.Transaction.OnError() {
+                                        @Override
+                                        public void onError(Throwable error) {
+                                            Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                                            Log.d("REal error", error.getMessage());
 
+                                        }
+                                    });
 
                                     setUserlogin();
 
@@ -249,10 +259,11 @@ public class LoginFragment extends Fragment {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(Constants.prefsLogin, true);
         editor.apply();
+        msg("Awesome");
 
 //        Intent intent = new Intent(getActivity(), HomeActivity.class);
 //        startActivity(intent);
-        getActivity().finish();
+//        getActivity().finish();
 
     }
 
@@ -290,6 +301,13 @@ public class LoginFragment extends Fragment {
         mRealm.close();
 
     }
+    private void hideKeyboard() {
+        View view = getActivity(). getCurrentFocus();
+        if (view != null) {
+            ((InputMethodManager) getActivity(). getSystemService(Context.INPUT_METHOD_SERVICE)).
+                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
 
     private class MyTextWatcher implements TextWatcher {
 
@@ -323,4 +341,6 @@ public class LoginFragment extends Fragment {
             }
         }
     }
+
+
 }
