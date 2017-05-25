@@ -1,6 +1,7 @@
 package com.libertycapital.marketapp.views.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import com.libertycapital.marketapp.models.UserMDL;
 import com.libertycapital.marketapp.utils.Constants;
 import com.libertycapital.marketapp.utils.GenUtils;
 import com.libertycapital.marketapp.utils.VolleyRequests;
+import com.libertycapital.marketapp.views.activities.HomeACT;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,8 +53,6 @@ import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmAsyncTask;
 import io.realm.RealmResults;
-
-import static android.R.attr.id;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -130,28 +130,11 @@ public class LoginFragment extends Fragment {
                                         public void execute(Realm realm) {
 
 
-//
-//                                            {"_id":"591082e6225a490004349316",
-//                                                    "district":"59091f695d0ba232bf920fbe",
-//                                                    "email":"agent@gmail.com",
-//                                                    "phone":"02484884499",
-//                                                    "surname":"Meulenteen",
-//                                                    "firstname":"Jen",
-//                                                    "__v":0,
-//                                                    "status":"A",
-//                                                    "modifiedDate":"2017-05-08T14:38:30.118Z",
-//                                                    "createdDate":"2017-05-08T14:38:30.118Z",
-//                                                    "identification":[],
-//                                                "id":"591082e6225a490004349316"}}
-
-
-
-                                            // personal data
                                             try {
 
                                                 final JSONObject agent = result.getJSONObject("agent");
-                                                UserMDL olduser = realm.where(UserMDL.class).equalTo("webId",agent.getString("id")).findFirst();
-                                                if (olduser ==null) {
+                                                UserMDL olduser = realm.where(UserMDL.class).equalTo("webId", agent.getString("id")).findFirst();
+                                                if (olduser == null) {
                                                     String id = UUID.randomUUID().toString();
                                                     UserMDL userMDL = realm.createObject(UserMDL.class, id);
                                                     userMDL.setWebId(agent.get("id").toString());
@@ -163,11 +146,10 @@ public class LoginFragment extends Fragment {
                                                     userMDL.setDistrictMDL(agent.getString("district"));
                                                     userMDL.setDateAdded(agent.getString("createdDate"));
                                                     userMDL.setDateModified(agent.getString("modifiedDate"));
-                                                }else{
+                                                } else {
                                                     realm.copyToRealmOrUpdate(olduser);
 
                                                 }
-
 
 
                                             } catch (JSONException e) {
@@ -182,11 +164,10 @@ public class LoginFragment extends Fragment {
                                             Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
                                             RealmResults<UserMDL> r = mRealm.where(UserMDL.class)
                                                     .findAll();
-                                            if (!r.isEmpty()){
-                                                Log.d("User total",String.valueOf(r.size()) );
-                                                Log.d("User content",String.valueOf(r.toString()) );
+                                            if (!r.isEmpty()) {
+                                                Log.d("User total", String.valueOf(r.size()));
+                                                Log.d("User content", String.valueOf(r.toString()));
                                             }
-
 
 
                                         }
@@ -259,11 +240,9 @@ public class LoginFragment extends Fragment {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(Constants.prefsLogin, true);
         editor.apply();
-        msg("Awesome");
 
-//        Intent intent = new Intent(getActivity(), HomeActivity.class);
-//        startActivity(intent);
-//        getActivity().finish();
+        startActivity(new Intent(getActivity(), HomeACT.class));
+        getActivity().finish();
 
     }
 
@@ -301,10 +280,11 @@ public class LoginFragment extends Fragment {
         mRealm.close();
 
     }
+
     private void hideKeyboard() {
-        View view = getActivity(). getCurrentFocus();
+        View view = getActivity().getCurrentFocus();
         if (view != null) {
-            ((InputMethodManager) getActivity(). getSystemService(Context.INPUT_METHOD_SERVICE)).
+            ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).
                     hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }

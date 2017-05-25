@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
+
     }
 
     dependencies {
@@ -61,7 +62,13 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:10.2.4'
     compile 'com.github.quentin7b:android-location-tracker:3.2'
     compile 'com.google.code.gson:gson:2.8.0'
-    testCompile 'junit:junit:4.12'
     compile 'com.jakewharton:butterknife:8.6.0'
+    testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    compile('com.mapbox.mapboxsdk:mapbox-android-sdk:5.0.2@aar') {
+        transitive = true
+    }
+    compile ('com.mapbox.mapboxsdk:mapbox-android-services:2.1.0@aar'){
+        transitive=true
+    }
 }
