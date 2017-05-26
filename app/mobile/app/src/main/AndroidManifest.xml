@@ -28,11 +28,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
 
         <meta-data
@@ -48,11 +44,19 @@
         <activity
             android:name=".views.activities.HomeACT"
             android:label="@string/title_activity_home_act"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+    </activity>
         <activity
             android:name=".views.activities.SellerACT"
             android:label="@string/title_activity_seller_act"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".views.activities.PaymentACT"
             android:label="@string/title_activity_payment"

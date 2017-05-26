@@ -21,4 +21,10 @@
     <string name="access_token">pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNqMzJ6anNydzAwNDgzMm5ycmN5MGdxcXAifQ.CtwiMjKIQHg2AdEOw5I8fQ</string>
     <string name="enter_other_name_hint">Enter Other name</string>
     <string name="enter_landmark_hint">Enter Landmark</string>
+    <string name="select_a_business_type_hint">Select a Business Type</string>
+    <string name="select_a_business_category_hint">Select a Business Category</string>
+    <string name="select_a_lane_hint">Select a Lane</string>
+    <string name="select_a_section_hint">Select a Section</string>
+    <string name="seller_picture_description">Seller Picture</string>
+    <string name="select_a_network_hint">Select a Network</string>
 </resources>

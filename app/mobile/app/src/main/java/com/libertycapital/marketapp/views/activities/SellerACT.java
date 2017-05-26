@@ -14,10 +14,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SellerACT extends AppCompatActivity {
+
+    public static ViewPager viewPager;
     @BindView(R.id.tabSeller)
     PagerSlidingTabStrip tabsStrip;
-    @BindView(R.id.viewpagerSeller)
-    ViewPager viewPager;
+    int currentPage;
 
 
     @Override
@@ -27,6 +28,7 @@ public class SellerACT extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
+        viewPager = (ViewPager) findViewById(R.id.viewpagerSeller);
         viewPager.setAdapter(new SellerViewPagerAdapter(getSupportFragmentManager()));
 
         tabsStrip.setViewPager(viewPager);
@@ -38,6 +40,7 @@ public class SellerACT extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
+                currentPage = position;
 
             }
 

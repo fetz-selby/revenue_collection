@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.libertycapital.marketapp.R;
 import com.libertycapital.marketapp.utils.GenUtils;
+import com.libertycapital.marketapp.views.activities.SellerACT;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +45,8 @@ public class PersonalDetailsFormFragment extends Fragment {
     Realm mRealm;
     RealmAsyncTask realmAsyncTask;
     private boolean editTextLnameError, editTextFnameError;
+    static ViewPager mViewPager = SellerACT.viewPager;
+
 
 
     public PersonalDetailsFormFragment() {
@@ -70,6 +74,7 @@ public class PersonalDetailsFormFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_personal_details_form, container, false);
         ButterKnife.bind(this, view);
+        mRealm= Realm.getDefaultInstance();
         return view;
     }
 
@@ -86,6 +91,9 @@ public class PersonalDetailsFormFragment extends Fragment {
                 if (!(editTextFnameError && editTextLnameError)) {
                     Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
                 } else {
+
+//To go to the next page
+                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
 
                 }
 

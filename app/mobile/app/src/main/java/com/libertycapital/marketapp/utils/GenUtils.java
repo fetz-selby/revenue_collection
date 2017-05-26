@@ -18,6 +18,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -386,5 +387,10 @@ public class GenUtils {
 
     }
 
-}
+    public static ArrayAdapter<CharSequence> getCharSequenceArrayAdapter(Activity activity, int array, int layout) {
+        return ArrayAdapter.createFromResource(activity, array, layout);
+    }
+
+
+    }
 

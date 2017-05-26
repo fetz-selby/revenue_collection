@@ -26,6 +26,20 @@
         <item>No</item>
     </string-array>
 
+    <string-array name="items_section">
+        <item>S1</item>
+        <item>S2</item>
+        <item>S3</item>
+        <item>S4</item>
+    </string-array>
+
+    <string-array name="items_lane">
+        <item>L1</item>
+        <item>L2</item>
+        <item>L3</item>
+        <item>L4</item>
+    </string-array>
+
     <string-array name="items_bussiness_type">
         <item>Shop</item>
         <item>Hawkers</item>
