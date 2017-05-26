@@ -1,0 +1,712 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+
+<script src="../assets/js/jquery.min.js"></script>
+
+
+<dom-module id="my-dashboard">
+
+<script src="../bower_components/highcharts/js/highcharts.js"></script>
+
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+    </style>
+
+    <!-- App css -->
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/core.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/components.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/pages.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/menu.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/responsive.css" rel="stylesheet" type="text/css" />
+        <link href="../bower_components/highcharts/css/highcharts.css" rel="stylesheet" type="text/css" />
+        <link href="../bower_components/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+
+        <script src="assets/js/modernizr.min.js"></script>
+
+
+
+    <div id="wrapper">
+
+            <!-- Top Bar Start -->
+            <div class="topbar">
+
+                <!-- LOGO -->
+               
+
+                <!-- Button mobile view to collapse sidebar menu -->
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="container">
+
+                        <!-- Navbar-left -->
+                        <ul class="nav navbar-nav navbar-left nav-menu-left">
+                            <li>
+                                <button type="button" class="button-menu-mobile open-left waves-effect">
+                                    <i class="dripicons-menu"></i>
+                                </button>
+                            </li>
+                        </ul>
+
+                        <!-- Right(Notification) -->
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="hidden-xs">
+                                
+                            </li>
+                            <li>
+                                <ul class="dropdown-menu dropdown-menu-right dropdown-lg user-list notify-list">
+                                    <li class="list-group notification-list m-b-0">
+                                       
+                                    </li>
+                                    <!-- end notification list -->
+                                </ul>
+                            </li>
+
+                            <li class="dropdown user-box">
+                                <a href="#" class="dropdown-toggle waves-effect user-link" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" style="color:#FFFFFF"></i>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-right arrow-dropdown-menu arrow-menu-right user-list notify-list">
+                                    <li><a href="javascript:void(0)"><span class="badge badge-info pull-right">4</span>Settings</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:void(0)">Logout</a></li>
+                                </ul>
+                            </li>
+
+                        </ul> <!-- end navbar-right -->
+
+                    </div><!-- end container -->
+                </div><!-- end navbar -->
+            </div>
+            <!-- Top Bar End -->
+
+
+            <!-- ========== Left Sidebar Start ========== -->
+          
+            <!-- Left Sidebar End -->
+
+
+
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="content-page">
+                <!-- Start content -->
+                <div class="content">
+                    <div class="container">
+                        <div class="row">
+              <div class="col-xs-12">
+                <div class="page-title-box">
+                                    <h4 class="page-title">Dashboard</h4>
+                                    <ol class="breadcrumb p-0 m-0">
+                                       
+                                    </ol>
+                                    <div class="clearfix"></div>
+                                </div>
+              </div>
+            </div>
+                        <!-- end row -->
+
+                        <div class="row">
+
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card-box widget-box-two widget-two-custom">
+                                    <i class="mdi mdi-currency-usd widget-two-icon"></i>
+                                    <div class="wigdet-two-content">
+                                        <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Total Revenue</p>
+                                        <h2 class=""><span><i class="mdi mdi-arrow-up"></i></span> <span data-plugin="counterup">65841</span></h2>
+                                        <p class="m-0">Jan - Apr 2017</p>
+                                    </div>
+                                </div>
+                            </div><!-- end col -->
+
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card-box widget-box-two widget-two-custom">
+                                    <i class="mdi mdi-account-multiple widget-two-icon"></i>
+                                    <div class="wigdet-two-content">
+                                        <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Total Field Agents</p>
+                                        <h2 class=""><span><i class="mdi mdi-arrow-up"></i></span> <span data-plugin="counterup">160</span></h2>
+                                        <p class="m-0">Jan - Apr 2017</p>
+                                    </div>
+                                </div>
+                            </div><!-- end col -->
+
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card-box widget-box-two widget-two-custom">
+                                    <i class="mdi mdi-crown widget-two-icon"></i>
+                                    <div class="wigdet-two-content">
+                                        <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Number of Transactions</p>
+                                        <h2 class=""><span><i class="mdi mdi-arrow-up"></i></span> <span data-plugin="counterup">563698</span></h2>
+                                        <p class="m-0">Jan - Apr 2017</p>
+                                    </div>
+                                </div>
+                            </div><!-- end col -->
+
+                           
+                            <!-- end col -->
+
+                        </div>
+                        <!-- end row -->
+
+
+                        <div class="row">
+                          <div class="col-lg-12">
+                                <div class="card-box">
+                                    <h4 class="header-title m-t-0 m-b-30">Past Years</h4>
+
+                                    <div >
+                                        <div id="year_analysis_container" style="height:340px"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card-box">
+                                    <h4 class="header-title m-t-0 m-b-30">Last Week</h4>
+
+                                    <div style="height:380px" id="last_week_container"></div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+
+                           <div class="col-lg-8">
+                                <div class="card-box">
+                                    <h4 class="header-title m-t-0 m-b-30">Yesterday</h4>
+                                    <div class="row">
+                                      <div class="col-lg-12" style="height:280px" id="yesterday_container"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                           <div class="col-lg-4">
+                                <div class="card-box">
+                                    <h4 class="header-title m-t-0 m-b-30">Today</h4>
+                                    <div class="row">
+                                      <div class="col-lg-12" style="height:280px" id="today_container"></div>
+                                    </div>
+                                </div>
+                           </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card-box">
+                                    <h4 class="m-t-0 header-title"><b>Recent Transaction</b></h4>
+                                    <p class="text-muted font-14 m-b-20">
+                                        Your awesome text goes here.
+                                    </p>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-hover m-0 mails table-actions-bar">
+
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <th>Name</th>
+                                                <th>Market</th>
+                                                <th>Section</th>
+                                                <th>Amount</th>
+                                                <th>Time</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                  <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" style="color:#4285f4"></i>
+                                                </td>
+
+                                                <td>
+                                                    <h5 class="m-b-0 m-t-0">Akwesi Amankwa</h5>
+                                                    <p class="m-b-0"><small>024 490 2345</small></p>
+                                                </td>
+
+                                                <td>
+                                                    <i class="mdi mdi-map-marker text-primary"></i> Asafo Market
+                                                </td>
+
+                                                <td>
+                                                    <i class="mdi mdi-clock text-success"></i> B Lane
+                                                </td>
+
+                                                <td>
+                                                    <i class="mdi mdi-currency-usd text-warning"></i> 2.00 GHS
+                                                </td>
+
+                                                <td>
+                                                    12:01 GMT
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                  <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" style="color:#4285f4"></i>
+                                                </td>
+
+                                                <td>
+                                                    <h5 class="m-b-0 m-t-0">Kweku Buaponsem</h5>
+                                                    <p class="m-b-0"><small>020 234 4567</small></p>
+                                                </td>
+
+                                                <td>
+                                                    <i class="mdi mdi-map-marker text-primary"></i> Central Market
+                                                </td>
+
+                                                <td>
+                                                    <i class="mdi mdi-clock text-success"></i> C Lane
+                                                </td>
+
+                                                <td>
+                                                    <i class="mdi mdi-currency-usd text-warning"></i> 3 GHS
+                                                </td>
+
+                                                <td>
+                                                    12:57 GMT
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                   <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" style="color:#4285f4"></i>
+                                                </td>
+
+                                                <td>
+                                                    <h5 class="m-b-0 m-t-0">Justice Boateng</h5>
+                                                    <p class="m-b-0"><small>027 345 8899</small></p>
+                                                </td>
+
+                                                <td>
+                                                    <i class="mdi mdi-map-marker text-primary"></i> Ashtown Market
+                                                </td>
+
+                                                <td>
+                                                    <i class="mdi mdi-clock text-success"></i> A Lane
+                                                </td>
+
+                                                <td>
+                                                    <i class="mdi mdi-currency-usd text-warning"></i> 20 GHS
+                                                </td>
+
+                                                <td>
+                                                    13:32 GMT
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                  <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" style="color:#4285f4"></i>
+                                                </td>
+
+                                                <td>
+                                                    <h5 class="m-b-0 m-t-0">Ama Aboagiwaa</h5>
+                                                    <p class="m-b-0"><small>055 234 5567</small></p>
+                                                </td>
+
+                                                <td>
+                                                    <i class="mdi mdi-map-marker text-primary"></i> Central Market
+                                                </td>
+
+                                                <td>
+                                                    <i class="mdi mdi-clock text-success"></i> C Lane
+                                                </td>
+
+                                                <td>
+                                                    <i class="mdi mdi-currency-usd text-warning"></i> 12 GHS
+                                                </td>
+
+                                                <td>
+                                                    14:34 GMT
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                  <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" style="color:#4285f4"></i>
+                                                </td>
+
+                                                <td>
+                                                    <h5 class="m-b-0 m-t-0">Gladys Quaye</h5>
+                                                    <p class="m-b-0"><small>023 345 5223</small></p>
+                                                </td>
+
+                                                <td>
+                                                    <i class="mdi mdi-map-marker text-primary"></i> Asafo Market
+                                                </td>
+
+                                                <td>
+                                                    <i class="mdi mdi-clock text-success"></i> B Lane
+                                                </td>
+
+                                                <td>
+                                                    <i class="mdi mdi-currency-usd text-warning"></i> 10 GHS
+                                                </td>
+
+                                                <td>
+                                                   14:50 GMT
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- end col -->
+                           
+                        </div>
+                        <!--- end row -->
+
+
+
+
+                    </div> <!-- container -->
+
+                </div> <!-- content -->
+
+                <footer class="footer text-right">
+                    2017 © eGHANA
+                </footer>
+
+            </div>
+
+
+            <!-- ============================================================== -->
+            <!-- End Right content here -->
+            <!-- ============================================================== -->
+
+
+        </div>
+        <!-- END wrapper -->
+
+
+
+        <!-- jQuery  -->
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.js"></script>
+        <script src="../assets/js/waves.js"></script>
+
+    
+        <!-- Dashboard init -->
+
+        <!-- App js -->
+        <script src="../assets/js/jquery.core.js"></script>
+  </template>
+
+
+  <script>
+    class MyDashboard extends Polymer.Element {
+      static get is() { return 'my-dashboard'; }
+
+      connectedCallback(){
+        super.connectedCallback();
+        this._renderYearAnalysisChart();
+        this._renderLastWeekChart();
+        this._renderTodaysChart();
+        this._renderYesterdayChart();
+      }
+
+      _renderYearAnalysisChart(){
+        var element = this.$.year_analysis_container;
+        Highcharts.chart(element, {
+            chart: {
+                type: 'spline'
+            },
+            title: {
+                text: 'Yearly Revenue Analysis, KMA'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: { // don't display the dummy year
+                    month: '%e. %b',
+                    year: '%b'
+                },
+                title: {
+                    text: 'Date'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Revenue (GHS)'
+                },
+                min: 0
+            },
+            tooltip: {
+                headerFormat: '<b>{series.name}</b><br>',
+                pointFormat: '{point.x:%e. %b}: {point.y:.2f} GHS'
+            },
+
+            plotOptions: {
+                spline: {
+                    marker: {
+                        enabled: true
+                    }
+                }
+            },
+
+            series: [{
+                name: '2013-2014',
+                // Define the data points. All series have a dummy year
+                // of 1970/71 in order to be compared on the same x axis. Note
+                // that in JavaScript, months start at 0 for January, 1 for February etc.
+                data: [
+                    [Date.UTC(1970, 9, 21), 0],
+                    [Date.UTC(1970, 10, 4), 15028],
+                    [Date.UTC(1970, 10, 9), 16025],
+                    [Date.UTC(1970, 10, 27), 14092],
+                    [Date.UTC(1970, 11, 2), 13028],
+                    [Date.UTC(1970, 11, 26), 12028],
+                    [Date.UTC(1970, 11, 29), 11047],
+                    [Date.UTC(1971, 0, 11), 23079],
+                    [Date.UTC(1971, 0, 26), 21072],
+                    [Date.UTC(1971, 1, 3), 11302],
+                    [Date.UTC(1971, 1, 11), 23112],
+                    [Date.UTC(1971, 1, 25), 20012],
+                    [Date.UTC(1971, 2, 11), 19118],
+                    [Date.UTC(1971, 3, 11), 18119],
+                    [Date.UTC(1971, 4, 1), 20185],
+                    [Date.UTC(1971, 4, 5), 19222],
+                    [Date.UTC(1971, 4, 19), 18115],
+                    [Date.UTC(1971, 5, 3), 0]
+                ]
+            }, {
+                name: '2014-2015',
+                data: [
+                    [Date.UTC(1970, 9, 29), 0],
+                    [Date.UTC(1970, 10, 9), 21004],
+                    [Date.UTC(1970, 11, 1), 21025],
+                    [Date.UTC(1971, 0, 1), 20166],
+                    [Date.UTC(1971, 0, 10), 18918],
+                    [Date.UTC(1971, 1, 19), 19176],
+                    [Date.UTC(1971, 2, 25), 21262],
+                    [Date.UTC(1971, 3, 19), 19241],
+                    [Date.UTC(1971, 3, 30), 23205],
+                    [Date.UTC(1971, 4, 14), 2217],
+                    [Date.UTC(1971, 4, 24), 23111],
+                    [Date.UTC(1971, 5, 10), 0]
+                ]
+            }, {
+                name: '2015-2016',
+                data: [
+                    [Date.UTC(1970, 10, 25), 0],
+                    [Date.UTC(1970, 11, 6), 20534],
+                    [Date.UTC(1970, 11, 20), 20141],
+                    [Date.UTC(1970, 11, 25), 20164],
+                    [Date.UTC(1971, 0, 4), 20106],
+                    [Date.UTC(1971, 0, 17), 21255],
+                    [Date.UTC(1971, 0, 24), 23262],
+                    [Date.UTC(1971, 1, 4), 23425],
+                    [Date.UTC(1971, 1, 14), 21242],
+                    [Date.UTC(1971, 2, 6), 20274],
+                    [Date.UTC(1971, 2, 14), 21262],
+                    [Date.UTC(1971, 2, 24), 19926],
+                    [Date.UTC(1971, 3, 2), 20281],
+                    [Date.UTC(1971, 3, 12), 19263],
+                    [Date.UTC(1971, 3, 28), 21277],
+                    [Date.UTC(1971, 4, 5), 22268],
+                    [Date.UTC(1971, 4, 10), 23256],
+                    [Date.UTC(1971, 4, 15), 22239],
+                    [Date.UTC(1971, 4, 20), 20123],
+                    [Date.UTC(1971, 5, 5), 20032],
+                    [Date.UTC(1971, 5, 10), 21185],
+                    [Date.UTC(1971, 5, 15), 20149],
+                    [Date.UTC(1971, 5, 23), 22108]
+                ]
+            }]
+        });
+      }
+
+      _renderLastWeekChart(){
+        var element = this.$.last_week_container;
+        Highcharts.chart(element, {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Last Week Market Revenue'
+            },
+            subtitle: {
+                text: ' '
+            },
+            xAxis: {
+                categories: [
+                    'Monday',
+                    'Tuesday',
+                    'Wednesday',
+                    'Thursday',
+                    'Friday',
+                    'Saturday'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Revenue (GHS)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} GHS</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Central Market',
+                data: [3499, 3715, 3064, 3292, 3240, 3760]
+
+            }, {
+                name: 'Asafo Market',
+                data: [3836, 3788, 3985, 3934, 3060, 3845]
+
+            }, {
+                name: 'Asawase Market',
+                data: [3489, 3388, 3393, 3414, 3470, 3483]
+
+            }, {
+                name: 'Race Course Market',
+                data: [3424, 3332, 3945, 1897, 3126, 2006]
+
+            }]
+        });
+      }
+      _renderThisWeekChart(){
+
+      }
+
+      _renderTodaysChart(){
+        var element = this.$.today_container;
+        Highcharts.chart(element, {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Browser market revenue, Today'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Markets',
+                colorByPoint: true,
+                data: [{
+                    name: 'Central Market',
+                    y: 56.33
+                }, {
+                    name: 'Asafo Market',
+                    y: 42.03,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Asokwa Market',
+                    y: 10.38
+                }, {
+                    name: 'Sofo Line Market',
+                    y: 4.77
+                }, {
+                    name: 'Asawase Market',
+                    y: 3.91
+                }]
+            }]
+        });
+      }
+
+      _renderYesterdayChart(){
+        var element = this.$.yesterday_container;
+        Highcharts.chart(element, {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Yesterday Market Revenue'
+            },
+            subtitle: {
+                text: ' '
+            },
+            xAxis: {
+                categories: [
+                    'Central Market',
+                    'Asafo Market',
+                    'Asawase Market',
+                    'Race Course Market'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Revenue (GHS)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} GHS</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Markets',
+                data: [4499, 4015, 3064, 3292]
+
+            }]
+        });
+      }
+    }
+
+    window.customElements.define(MyDashboard.is, MyDashboard);
+  </script>
+</dom-module>

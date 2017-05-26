@@ -1,0 +1,130 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-login">
+
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+
+
+      .btn-style{background-color: #FF5722 !important; border-color: #FF5722 !important; color: #FFFFFF;}
+      .button:hover{color: #FFFFFF !important;}
+    </style>
+
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/core.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/components.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/pages.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/responsive.css" rel="stylesheet" type="text/css" />
+
+     <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <div class="wrapper-page">
+
+                            <div class="account-pages">
+                                <div class="account-box">
+                                    <div class="account-logo-box">
+                                        
+                                        <h5 class="text-uppercase font-bold m-b-5 m-t-50">Sign In</h5>
+                                        <p class="m-b-0">Login to your Admin account</p>
+                                    </div>
+                                    <div class="account-content">
+                                        <div class="form-horizontal" action="#">
+
+                                            <div class="form-group m-b-20">
+                                                <div class="col-xs-12">
+                                                    <label for="emailaddress">Email address</label>
+                                                    <input class="form-control" type="email" id="username" required="" placeholder="john.doen@gmail.com" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-b-20">
+                                                <div class="col-xs-12">
+                                                    <a href="page-recoverpw.html" class="text-muted pull-right"><small>Forgot your password?</small></a>
+                                                    <label for="password">Password</label>
+                                                    <input class="form-control" type="password" required="" id="password" placeholder="Enter your password" />
+                                                </div>
+                                            </div>
+                                            <br/>
+
+                                            <!-- <div class="form-group m-b-20">
+                                                <div class="col-xs-12">
+
+                                                    <div class="checkbox checkbox-success">
+                                                        <input id="remember" type="checkbox" checked="">
+                                                        <label for="remember">
+                                                            Remember me
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+                                            </div> -->
+
+                                            <div class="form-group text-center m-t-10">
+                                                <div class="col-xs-12">
+                                                    <button class="btn btn-md btn-block waves-effect waves-light btn-style" type="submit" on-click="_onLogin">Sign In</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row m-t-50" style="display:none;">
+                                            <div class="col-sm-12 text-center">
+                                                <p class="text-muted">Don't have an account? <a href="page-register.html" class="text-dark m-l-5"><b>Sign Up</b></a></p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end card-box-->
+
+
+                        </div>
+                        <!-- end wrapper -->
+
+                    </div>
+                </div>
+            </div>
+          </section>
+  </template>
+
+  <script>
+    class MyLogin extends Polymer.Element {
+      static get is() { return 'my-login'; }
+      static get properties(){
+        return {
+          username : String,
+          password : String
+        }
+      }
+
+      _onLogin(e){
+        this.username = this.$.username.value;
+        this.password = this.$.password.value;
+
+        this.dispatchEvent(new CustomEvent('success', {detail : {username : this.username, password : this.password}}));
+      }
+    }
+
+    window.customElements.define(MyLogin.is, MyLogin);
+  </script>
+</dom-module>
