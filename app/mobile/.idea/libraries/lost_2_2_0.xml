@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="lost-2.2.0">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/f89be4fb843d4806517c63b3b1147421b56107f6/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/f89be4fb843d4806517c63b3b1147421b56107f6/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mapzen.android/lost/2.2.0/9b6d7481227aa356e753e633c53427c076cb7bf9/lost-2.2.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
