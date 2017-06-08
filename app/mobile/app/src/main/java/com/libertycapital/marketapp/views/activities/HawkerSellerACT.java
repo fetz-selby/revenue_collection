@@ -8,12 +8,13 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.libertycapital.marketapp.R;
+import com.libertycapital.marketapp.views.adapters.HawkerViewPagerAdapter;
 import com.libertycapital.marketapp.views.adapters.SellerViewPagerAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SellerACT extends AppCompatActivity {
+public class HawkerSellerACT extends AppCompatActivity {
 
     public static ViewPager viewPager;
     @BindView(R.id.tabSeller)
@@ -29,7 +30,7 @@ public class SellerACT extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
         viewPager = (ViewPager) findViewById(R.id.viewpagerSeller);
-        viewPager.setAdapter(new SellerViewPagerAdapter(getSupportFragmentManager()));
+        viewPager.setAdapter(new HawkerViewPagerAdapter(getSupportFragmentManager()));
 
         tabsStrip.setViewPager(viewPager);
         tabsStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {

@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="com.libertycapital.marketapp.views.fragments.PersonalDetailsFormFragment">
 
     <ScrollView
@@ -19,6 +22,9 @@
             android:orientation="vertical"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
+            android:descendantFocusability="beforeDescendants"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:scrollbars="vertical">
 
 
@@ -97,6 +103,7 @@
                     android:id="@+id/editTextLname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
                     android:hint="@string/enter_lastname_hint" />
             </android.support.design.widget.TextInputLayout>
 
@@ -115,6 +122,7 @@
                     android:id="@+id/editTextOname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
                     android:hint="@string/enter_other_name_hint" />
             </android.support.design.widget.TextInputLayout>
 

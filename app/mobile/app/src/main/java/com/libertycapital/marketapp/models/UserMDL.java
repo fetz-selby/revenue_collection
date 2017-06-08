@@ -2,6 +2,7 @@ package com.libertycapital.marketapp.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -27,6 +28,27 @@ public class UserMDL extends RealmObject {
     private String districtMDL;
     private String dateAdded;
     private String dateModified;
+    private RealmList<LocationMDL> locations;
+    private float virtualAccount;
+
+    public UserMDL(String webId, String firstName, String lastName, String email, String phone, String districtMDL, String dateAdded, float virtualAccount) {
+        this.webId = webId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.districtMDL = districtMDL;
+        this.dateAdded = dateAdded;
+        this.virtualAccount = virtualAccount;
+    }
+
+    public float getVirtualAccount() {
+        return virtualAccount;
+    }
+
+    public void setVirtualAccount(float virtualAccount) {
+        this.virtualAccount = virtualAccount;
+    }
 
     public String getDateAdded() {
         return dateAdded;
@@ -44,7 +66,6 @@ public class UserMDL extends RealmObject {
         this.dateModified = dateMddified;
     }
 
-
     public String getWebId() {
         return webId;
     }
@@ -52,7 +73,6 @@ public class UserMDL extends RealmObject {
     public void setWebId(String webId) {
         this.webId = webId;
     }
-
 
     public String getId() {
         return id;

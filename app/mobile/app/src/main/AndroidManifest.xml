@@ -27,9 +27,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
@@ -38,12 +36,12 @@
         <activity
             android:name=".views.activities.LoginACT"
             android:label="@string/title_activity_login_act"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.activities.HomeACT"
             android:label="@string/title_activity_home_act"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,16 +49,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-    </activity>
+        </activity>
         <activity
-            android:name=".views.activities.SellerACT"
+            android:name=".views.activities.ShopSellerACT"
             android:label="@string/title_activity_seller_act"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".views.activities.HawkerSellerACT"
+            android:label="@string/Hawker_title"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.activities.PaymentACT"
             android:label="@string/title_activity_payment"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activities.SellerMenuACT"
+            android:label="@string/title_activity_seller_menu_act"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activities.SellerProfileACT"
+            android:label="@string/title_activity_seller_profile_act"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

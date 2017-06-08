@@ -53,13 +53,41 @@
     </string-array>
 
     <string-array name="items_mobile_network">
-        <item>Mobile Network</item>
         <item>Airtel</item>
         <item>MTN</item>
         <item>Tigo</item>
         <item>Vodafone</item>
     </string-array>
 
+    <string-array name="items_markets">
+        <item>Asafo Market</item>
+        <item>Central Market</item>
+        <item>Kejetia Market</item>
+        <item>Kwadaso Market</item>
+    </string-array>
+
+    <string-array name="items_hawker">
+        <item>Market Porters</item>
+        <item>Truck Pushers</item>
+        <item>Seller</item>
+    </string-array>
+
+
+
+
+    <string-array name="items_shops">
+        <item>1947 Open Stall Occupants</item>
+        <item>956 Lock-up Occupants</item>
+        <item> 56 Super Lock-up Aboabo Station</item>
+        <item>Super FRG</item>
+        <item>38 FRI Super Lock-up</item>
+        <item>FRG Super Lock-up</item>
+        <item> FRI Super Lock-up</item>
+        <item>100 FRT</item>
+        <item> 33 FRI</item>
+    </string-array>
+
+s
 
 </resources>
 

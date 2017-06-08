@@ -10,21 +10,30 @@
     <string name="register_business_btn">Register Business</string>
     <string name="collect_taxes_btn">Collect Taxes</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_seller_act">SellerACT</string>
+    <string name="title_activity_seller_act">Shop Registration</string>
     <string name="title_activity_payment">Payment</string>
     <string name="enter_firstname_hint">Enter Firstname</string>
     <string name="enter_lastname_hint">Enter Lastname</string>
-    <string name="enter_mobile_money_phone_number_hint">Enter Mobile Money number</string>
+    <string name="enter_mobile_money_phone_number_hint">Enter Phone Number</string>
     <!--<string name="access_token">pk.eyJ1Ijoic3RldmFuZG9oIiwiYSI6ImNpdmpjdWhqZjAwOHUydGw1N2M2dmRraG4ifQ.TZxSrl2nE1uAk5vqj2nlog</string>-->
     <string name="access_token">pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNqMzJ6anNydzAwNDgzMm5ycmN5MGdxcXAifQ.CtwiMjKIQHg2AdEOw5I8fQ</string>
     <string name="enter_other_name_hint">Enter Other name</string>
     <string name="enter_landmark_hint">Enter Landmark</string>
-    <string name="select_a_business_type_hint">Select a Business Type</string>
-    <string name="select_a_business_category_hint">Select a Business Category</string>
-    <string name="select_a_lane_hint">Select a Lane</string>
-    <string name="select_a_section_hint">Select a Section</string>
+    <string name="select_a_business_type_hint">Select a Market</string>
+    <string name="select_a_business_category_hint">Select a Shop Type</string>
+    <string name="select_a_lane_hint">Are you selling your shopoutside </string>
+    <string name="select_a_section_hint">Are you selling on the floor?</string>
     <string name="seller_picture_description">Seller Picture</string>
     <string name="select_a_network_hint">Select a Network</string>
+    <string name="title_activity_seller_menu_act">Seller Menu</string>
+    <string name="shop_btn">Register Shop</string>
+    <string name="register_hawker_btn">Register hawker</string>
+    <string name="Hawker_title">Hawker</string>
+    <string name="selling_on_a_table_hint">Are you selling on Table?</string>
+    <string name="selling_on_the_floor_hint">Are you selling on the floor?</string>
+    <string name="title_activity_seller_profile_act">SellerProfileACT</string>
+    <string name="selling_on_table_checkbox_label">Selling on table</string>
+    <string name="selling_on_the_floor_checkbox_label">Selling on the floor</string>
+    <string name="seller_pic_label">Seller Picture</string>
 </resources>

@@ -45,8 +45,7 @@ public class BusinessDetailsFormFragment extends Fragment {
     EditText editTextLandmark;
     Realm mRealm;
     RealmAsyncTask realmAsyncTask;
-//    @BindView(R.id.text1)
-//    TextView textViewHintRowItem;
+
 
 
     public BusinessDetailsFormFragment() {
