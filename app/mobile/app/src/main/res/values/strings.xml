@@ -36,4 +36,6 @@
     <string name="selling_on_table_checkbox_label">Selling on table</string>
     <string name="selling_on_the_floor_checkbox_label">Selling on the floor</string>
     <string name="seller_pic_label">Seller Picture</string>
+    <string name="shop_seller">Shop</string>
+    <string name="sellers_btn_label">Sellers</string>
 </resources>

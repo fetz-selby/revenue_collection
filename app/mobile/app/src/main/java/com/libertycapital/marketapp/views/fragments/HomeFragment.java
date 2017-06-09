@@ -7,20 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.libertycapital.marketapp.R;
-import com.libertycapital.marketapp.models.SellerMDL;
-import com.libertycapital.marketapp.models.UserMDL;
-import com.libertycapital.marketapp.views.activities.PaymentACT;
 import com.libertycapital.marketapp.views.activities.SellerMenuACT;
 import com.libertycapital.marketapp.views.activities.SellerProfileACT;
-import com.libertycapital.marketapp.views.activities.ShopSellerACT;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,37 +42,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), SellerMenuACT.class));
-//                final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-//                final Date date = new Date();
-//                final String id = UUID.randomUUID().toString();
-//                realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
-//                    @Override
-//                    public void execute(Realm realm) {
-//
-//                        SellerMDL sellerMDL = realm.createObject(SellerMDL.class, id);
-//                        UserMDL userMDL = mRealm.where(UserMDL.class).findFirst();
-//                        if (userMDL != null) {
-//                            sellerMDL.setCreatedBy(userMDL);
-//                        }
-//
-//                        sellerMDL.setCreatedDate(dateFormat.format(date));
-//                    }
-//                }, new Realm.Transaction.OnSuccess() {
-//                    @Override
-//                    public void onSuccess() {
-//                        Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                }, new Realm.Transaction.OnError() {
-//                    @Override
-//                    public void onError(Throwable error) {
-//                        Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
-//
-//                    }
-//
-//
-//                });
-//                startActivity(new Intent(getActivity(), ShopSellerACT.class).putExtra("sellerId", id));
+
 
 
             }

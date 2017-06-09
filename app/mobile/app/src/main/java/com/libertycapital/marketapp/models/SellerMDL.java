@@ -45,7 +45,37 @@ public class SellerMDL extends RealmObject {
         this.createdDate = createdDate;
     }
 
+    public String getModifiedDate() {
+        return modifiedDate;
+    }
 
+    public void setModifiedDate(String modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public String getMarket() {
+        return market;
+    }
+
+    public void setMarket(String market) {
+        this.market = market;
+    }
+
+    public String getShopType() {
+        return shopType;
+    }
+
+    public void setShopType(String shopType) {
+        this.shopType = shopType;
+    }
+
+    public String getSellerType() {
+        return sellerType;
+    }
+
+    public void setSellerType(String sellerType) {
+        this.sellerType = sellerType;
+    }
 
     public String getLandmark() {
         return landmark;
