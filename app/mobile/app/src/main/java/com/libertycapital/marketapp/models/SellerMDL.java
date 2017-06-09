@@ -31,6 +31,9 @@ public class SellerMDL extends RealmObject {
     private RealmList<PaymentMDL> paymentMDLs;
     private LocationMDL locationMDL;
 
+    public SellerMDL() {
+
+    }
 
     public SellerMDL(String id, String firstname, String lastname, String otherName, String photo, UserMDL createdBy, String createdDate) {
         this.id = id;

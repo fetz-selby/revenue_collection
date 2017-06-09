@@ -6,10 +6,20 @@ import io.realm.RealmObject;
  * Created by root on 6/7/17.
  */
 
-class LocationMDL extends RealmObject{
+public class LocationMDL extends RealmObject{
     private double longitude;
     private double latitude;
     private String dateCreated;
+
+    public LocationMDL() {
+
+    }
+
+    public LocationMDL(double longitude, double latitude, String dateCreated) {
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.dateCreated = dateCreated;
+    }
 
     public double getLongitude() {
         return longitude;

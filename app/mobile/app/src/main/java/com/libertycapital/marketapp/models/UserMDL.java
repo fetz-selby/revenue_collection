@@ -31,6 +31,11 @@ public class UserMDL extends RealmObject {
     private RealmList<LocationMDL> locations;
     private float virtualAccount;
 
+
+    public UserMDL() {
+
+    }
+
     public UserMDL(String webId, String firstName, String lastName, String email, String phone, String districtMDL, String dateAdded, float virtualAccount) {
         this.webId = webId;
         this.firstName = firstName;
