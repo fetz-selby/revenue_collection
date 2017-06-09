@@ -61,41 +61,11 @@ public class SellerMenuFragment extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonRegisterShopSeller:
-                final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                final Date date = new Date();
-                final String id = UUID.randomUUID().toString();
-                realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-
-                        SellerMDL sellerMDL = realm.createObject(SellerMDL.class, id);
-                        UserMDL userMDL = realm.where(UserMDL.class).findFirst();
-                        if (userMDL != null) {
-                            sellerMDL.setCreatedBy(userMDL);
-                        }
-                        sellerMDL.setSellerType(getString(R.string.shop_seller));
-
-                        sellerMDL.setCreatedDate(dateFormat.format(date));
-                    }
-                }, new Realm.Transaction.OnSuccess() {
-                    @Override
-                    public void onSuccess() {
-                        Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
-
-                    }
-                }, new Realm.Transaction.OnError() {
-                    @Override
-                    public void onError(Throwable error) {
-                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-
-                    }
-
-
-                });
-                startActivity(new Intent(getActivity(), ShopSellerACT.class).putExtra("sellerId", id));
-//                startActivity(new Intent(getActivity(), ShopSellerACT.class));
+                setSeller(R.string.shop_seller);
+                startActivity(new Intent(getActivity(), ShopSellerACT.class));
                 break;
             case R.id.buttonRegisterHawker:
+                setSeller(R.string.hawker_string);
                 startActivity(new Intent(getActivity(), HawkerSellerACT.class));
                 break;
             default:
@@ -103,4 +73,41 @@ public class SellerMenuFragment extends Fragment implements View.OnClickListener
 
         }
     }
+
+    private void setSeller(final int sellerType) {
+        final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        final Date date = new Date();
+        final String id = UUID.randomUUID().toString();
+        realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+
+                SellerMDL sellerMDL = realm.createObject(SellerMDL.class, id);
+                UserMDL userMDL = realm.where(UserMDL.class).findFirst();
+                if (userMDL != null) {
+                    sellerMDL.setCreatedBy(userMDL);
+                }
+                sellerMDL.setSellerType(getString(sellerType));
+
+                sellerMDL.setCreatedDate(dateFormat.format(date));
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
+
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+
+
+        });
+
+    }
+
+
 }
