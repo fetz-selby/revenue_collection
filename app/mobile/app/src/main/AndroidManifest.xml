@@ -48,17 +48,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".views.activities.ShopSellerACT"
             android:label="@string/title_activity_seller_act"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.activities.HawkerSellerACT"
             android:label="@string/Hawker_title"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.activities.PaymentACT"
@@ -74,9 +75,15 @@
             android:name=".views.activities.SellerProfileACT"
             android:label="@string/title_activity_seller_profile_act"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activities.RecyclerViewExampleActivity"
+            android:label="@string/title_activity_recycler_view_example"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".views.activities.SellerListACT"
+            android:label="@string/title_activity_seller_list_act"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

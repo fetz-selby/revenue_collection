@@ -38,4 +38,16 @@
     <string name="seller_pic_label">Seller Picture</string>
     <string name="shop_seller">Shop</string>
     <string name="sellers_btn_label">Sellers</string>
+    <string name="hawker_string">Hawker</string>
+    <string name="title_activity_recycler_view_example">RecyclerViewExampleActivity</string>
+
+
+    <string name="add">Add Value</string>
+    <string name="listview">List View</string>
+    <string name="recyclerview">Recycler View</string>
+    <string name="add_random">Random Add</string>
+    <string name="start_delete">Start Deletion</string>
+    <string name="delete">Delete</string>
+    <string name="view_sellers_btn_label">Details</string>
+    <string name="title_activity_seller_list_act">SellerListACT</string>
 </resources>

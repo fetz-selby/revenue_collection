@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.libertycapital.marketapp.R;
@@ -49,13 +48,13 @@ public class SellerListAdapter extends RealmRecyclerViewAdapter<SellerMDL, Selle
         public SellerMDL data;
         TextView sellerName;
         TextView sellerType;
-        Button buttonViewSellerDetail;
+//        Button buttonViewSellerDetail;
 
         public SellerListListViewHolder(View itemView) {
             super(itemView);
             sellerName = (TextView) itemView.findViewById(R.id.textViewSellerName);
             sellerType = (TextView) itemView.findViewById(R.id.textViewSellerType);
-            buttonViewSellerDetail = (Button) itemView.findViewById(R.id.buttonViewDetails);
+//            buttonViewSellerDetail = (Button) itemView.findViewById(R.id.buttonViewDetails);
 
         }
     }

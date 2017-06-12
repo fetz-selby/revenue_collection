@@ -171,12 +171,13 @@ public class PersonalDetailsFormFragment extends Fragment {
                     }, new Realm.Transaction.OnSuccess() {
                         @Override
                         public void onSuccess() {
+                            Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
 
                         }
                     }, new Realm.Transaction.OnError() {
                         @Override
                         public void onError(Throwable error) {
-
+                            Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
 
