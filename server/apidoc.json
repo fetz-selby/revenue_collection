@@ -1,0 +1,7 @@
+{
+  "name": "Api docs",
+  "version": "1.0.0",
+  "description": "Description of the various api endpoints",
+  "title": "revenue api",
+  "url" : "https://revenue-api.herokuapp.com/eghana/revenue/api"
+}

@@ -3,7 +3,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     multer = require('multer'),
     session = require('express-session'),
-    port = process.env.PORT || 8001,
+    port = process.env.PORT || 8002,
     mongoose = require('mongoose'),
     modelInitializer = require('./services/model_service'),
     logger = require('morgan'),
@@ -30,8 +30,10 @@ var agentsRoute     = require('./routes/agents_router')(pool),
     authRoute       = require('./routes/auth_router')(pool),
     peopleRoute     = require('./routes/people_router')(pool),
     usersRoute      = require('./routes/users_router')(pool);
+    paymentsRoute   = require('./routes/payments_router')(pool);
 
 
+app.use(express.static('public', {extensions: ['html', 'htm']}));
 //Set middlewares
 //app.use(bodyParser.urlencoded({extended: true}));
 //app.use(bodyParser.json());
@@ -69,6 +71,8 @@ app.use(function (req, res, next) {
 app.use('/eghana/revenue/api/auth', authRoute.router);
 app.use('/eghana/revenue/api/agents', agentsRoute.router);
 app.use('/eghana/revenue/api/users', usersRoute.router);
+app.use('/eghana/revenue/api/people', peopleRoute.router);
+app.use('/eghana/revenue/api/payments', paymentsRoute.router);
 
 app.get('/eghana', function(req, res){
     res.status(200).send('Please check API documentation');

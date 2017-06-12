@@ -10,6 +10,7 @@ var agentSchema = new Schema({
     email           : String,
     password        : String,
     district        : { type: Schema.Types.ObjectId },
+    market          : { type: Schema.Types.ObjectId, ref: 'Mark' },
     identification  : [{
         type	    : String,
         number 		: String,
