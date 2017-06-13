@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Emmanuella Appiah"
-        android:textColor="@color/ColorPrimaryText"
+        android:textColor="@color/colorPrimaryText"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp"
         android:layout_marginRight="135dp"

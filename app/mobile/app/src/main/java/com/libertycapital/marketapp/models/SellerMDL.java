@@ -16,6 +16,7 @@ public class SellerMDL extends RealmObject {
     private String lastname;
     private String otherName;
     private String photo;
+    private String photoUri;
     private String businessType;
     private String businessCategory;
     private String landmark;
@@ -219,6 +220,14 @@ public class SellerMDL extends RealmObject {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
     }
 
 

@@ -12,26 +12,46 @@
             android:id="@+id/textViewSellerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="16dp"
             android:text="TextView"
+            android:textColor="@color/colorPrimaryText"
             android:textSize="16sp"
-            app:layout_constraintHorizontal_bias="0.029"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toRightOf="@+id/imageViewProfile"
+            android:layout_marginLeft="21dp"
+            android:layout_marginRight="8dp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHorizontal_bias="0.0" />
 
         <TextView
             android:id="@+id/textViewSellerType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="14dp"
             android:textSize="14sp"
+            android:text="TextView"
+            android:textColor="@color/colorSecondaryText"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSellerName"
+            app:layout_constraintLeft_toRightOf="@+id/imageViewProfile"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/imageViewProfile"
+            android:layout_width="56dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/ic_avatar"
+            android:layout_marginLeft="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewSellerName" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp" />
 
         <!--<Button-->
             <!--android:id="@+id/buttonViewDetails"-->

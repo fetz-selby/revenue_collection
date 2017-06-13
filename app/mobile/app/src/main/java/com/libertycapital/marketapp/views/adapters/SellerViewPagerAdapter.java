@@ -3,12 +3,11 @@ package com.libertycapital.marketapp.views.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import com.libertycapital.marketapp.views.fragments.BusinessDetailsFormFragment;
 import com.libertycapital.marketapp.views.fragments.BusinessExtraFragment;
 import com.libertycapital.marketapp.views.fragments.ContactDetailsFormFragment;
-import com.libertycapital.marketapp.views.fragments.IdentificationCardFragment;
 import com.libertycapital.marketapp.views.fragments.MapBusinessFragment;
 import com.libertycapital.marketapp.views.fragments.PersonalDetailsFormFragment;
+import com.libertycapital.marketapp.views.fragments.ShopSellerDetailsFragment;
 
 import java.util.List;
 
@@ -43,7 +42,7 @@ public class SellerViewPagerAdapter extends SmartFragmentStatePagerAdapter{
             case 1:
                 return new ContactDetailsFormFragment();
             case 2:
-                return new BusinessDetailsFormFragment();
+                return new ShopSellerDetailsFragment();
             case 3:
                 return new BusinessExtraFragment();
             case 4:

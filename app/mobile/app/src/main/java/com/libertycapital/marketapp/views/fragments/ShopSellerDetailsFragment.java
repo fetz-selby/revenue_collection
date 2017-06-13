@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,8 +18,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.libertycapital.marketapp.R;
+import com.libertycapital.marketapp.models.SellerMDL;
 import com.libertycapital.marketapp.utils.GenUtils;
 import com.libertycapital.marketapp.views.adapters.HintSpinnerAdapter;
+
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,29 +30,28 @@ import io.realm.Realm;
 import io.realm.RealmAsyncTask;
 
 import static com.libertycapital.marketapp.utils.GenUtils.getCharSequenceArrayAdapter;
+import static com.libertycapital.marketapp.utils.GenUtils.getToastMessage;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BusinessDetailsFormFragment extends Fragment {
-    @BindView(R.id.floatingActionButtonBusiness)
-    FloatingActionButton floatingActionButtonBusiness;
-    @BindView(R.id.spinnerBussinessType)
-    Spinner spinnerBusinessType;
-    @BindView(R.id.spinnerBusinessCategory)
-    Spinner spinnerBusinessCategory;
-    @BindView(R.id.spinnerSection)
-    Spinner spinnerSection;
-    @BindView(R.id.spinnerLane)
-    Spinner spinnerLane;
+public class ShopSellerDetailsFragment extends Fragment {
+    @BindView(R.id.floatingActionButtonShopSeller)
+    FloatingActionButton floatingActionButtonShopSeller;
+    @BindView(R.id.spinnerMarket)
+    Spinner spinnerMarket;
+    @BindView(R.id.spinnerShopType)
+    Spinner spinnerShopType;
     @BindView(R.id.editTextLandmark)
     EditText editTextLandmark;
+    @BindView(R.id.textInputLayoutLandmark)
+    TextInputLayout textInputLayoutLandmark;
     Realm mRealm;
     RealmAsyncTask realmAsyncTask;
+    private boolean editTextLandmarkError;
 
 
-
-    public BusinessDetailsFormFragment() {
+    public ShopSellerDetailsFragment() {
         // Required empty public constructor
     }
 
@@ -57,7 +60,7 @@ public class BusinessDetailsFormFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_business_details_form, container, false);
+        View view = inflater.inflate(R.layout.fragment_shop_seller_details, container, false);
         ButterKnife.bind(this, view);
         mRealm = Realm.getDefaultInstance();
 
@@ -68,41 +71,39 @@ public class BusinessDetailsFormFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ArrayAdapter<CharSequence> adapterBusinessType =
-                 getCharSequenceArrayAdapter(getActivity(),R.array.items_bussiness_type,
+        ArrayAdapter<CharSequence> adapterMarket =
+                getCharSequenceArrayAdapter(getActivity(), R.array.items_markets,
                         android.R.layout.simple_spinner_item);
 
-        ArrayAdapter<CharSequence> adapterBusinessCategory =
-                getCharSequenceArrayAdapter(getActivity(),R.array.items_bussiness_category,
-                        android.R.layout.simple_spinner_item);
-
-        ArrayAdapter<CharSequence> adapterSection =
-                getCharSequenceArrayAdapter(getActivity(),R.array.items_section,
-                        android.R.layout.simple_spinner_item);
-
-        ArrayAdapter<CharSequence> adapterLane =
-                getCharSequenceArrayAdapter(getActivity(),R.array.items_lane,
+        ArrayAdapter<CharSequence> adapterShopType =
+                getCharSequenceArrayAdapter(getActivity(), R.array.items_shops,
                         android.R.layout.simple_spinner_item);
 
 
-        spinnerBusinessType.setAdapter(new HintSpinnerAdapter(
-                adapterBusinessType, R.layout.hint_business_type, getContext()));
+        spinnerMarket.setAdapter(new HintSpinnerAdapter(
+                adapterMarket, R.layout.hint_market, getContext()));
 
-        spinnerBusinessCategory.setAdapter(new HintSpinnerAdapter(
-                adapterBusinessCategory, R.layout.hint_business_category, getContext()));
+        spinnerShopType.setAdapter(new HintSpinnerAdapter(
+                adapterShopType, R.layout.hint_shop, getContext()));
 
-        spinnerSection.setAdapter(new HintSpinnerAdapter(
-                adapterSection, R.layout.hint_section, getContext()));
+        floatingActionButtonShopSeller.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editTextLandmarkError= GenUtils.isEmpty(editTextLandmark, textInputLayoutLandmark, "Landmark required");
 
-        spinnerLane.setAdapter(new HintSpinnerAdapter(
-                adapterLane, R.layout.hint_lane, getContext()));
 
+                if (spinnerMarket.getSelectedItem() == null && spinnerShopType.getSelectedItem() ==null && !editTextLandmarkError) {
+                    getToastMessage(getContext(), "Please select a market and a shop");
+                    getToastMessage(getContext(), "Landmark required");
+                } else {
+                    storeData();
+                }
+
+            }
+        });
 
     }
 
-//    public  ArrayAdapter<CharSequence> getCharSequenceArrayAdapter(int array, int layout) {
-//        return ArrayAdapter.createFromResource(getActivity(), array, layout);
-//    }
 
     @Override
     public void onStop() {
@@ -126,6 +127,40 @@ public class BusinessDetailsFormFragment extends Fragment {
             ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).
                     hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
+    }
+
+    private void storeData() {
+        realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                SellerMDL sellerMDL = realm.where(SellerMDL.class).findAllSorted("createdDate").last();
+                String id = UUID.randomUUID().toString();
+                if (spinnerMarket.getSelectedItem().toString()!=null){
+                    sellerMDL.setMarket(spinnerMarket.getSelectedItem().toString());
+                }if (spinnerShopType.getSelectedItem().toString()!=null){
+                    sellerMDL.setMarket(spinnerShopType.getSelectedItem().toString());
+                }
+
+                sellerMDL.setMarket(spinnerShopType.getSelectedItem().toString());
+
+                sellerMDL.setLandmark(editTextLandmark.getText().toString());
+
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+
+                GenUtils.getToastMessage(getContext(), "Added successfully");
+
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                GenUtils.getToastMessage(getContext(), "Market and Store are required");
+            }
+        });
+//        setViewpager(sellerMDL,mViewPager);
+
     }
 
     private class MyTextWatcher implements TextWatcher {

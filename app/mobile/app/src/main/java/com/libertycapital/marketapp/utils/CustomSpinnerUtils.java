@@ -2,13 +2,12 @@ package com.libertycapital.marketapp.utils;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.Spinner;
 
 /**
  * Created by SOVAVY on 5/7/2017.
  */
 
-public class CustomSpinnerUtils extends Spinner {
+public class CustomSpinnerUtils extends android.support.v7.widget.AppCompatSpinner {
     public CustomSpinnerUtils(Context context)
     { super(context); }
 

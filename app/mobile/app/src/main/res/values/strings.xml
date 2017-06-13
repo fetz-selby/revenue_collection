@@ -49,5 +49,8 @@
     <string name="start_delete">Start Deletion</string>
     <string name="delete">Delete</string>
     <string name="view_sellers_btn_label">Details</string>
-    <string name="title_activity_seller_list_act">SellerListACT</string>
+    <string name="title_activity_seller_list_act">Seller List</string>
+    <string name="store_db_successfull">Added successfully</string>
+    <string name="select_a_shop_hint">Select a shop</string>
+    <string name="select_a_market_hint">Select a Market</string>
 </resources>
