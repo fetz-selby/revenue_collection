@@ -1,12 +1,15 @@
 package com.libertycapital.marketapp.models;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by root on 6/7/17.
  */
 
 public class LocationMDL extends RealmObject{
+    @PrimaryKey
+    private String id;
     private double longitude;
     private double latitude;
     private String dateCreated;

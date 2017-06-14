@@ -2,7 +2,6 @@ package com.libertycapital.marketapp.views.fragments;
 
 
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -21,7 +20,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -30,13 +28,16 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.libertycapital.marketapp.R;
 import com.libertycapital.marketapp.models.SellerMDL;
 import com.libertycapital.marketapp.utils.GenUtils;
+import com.libertycapital.marketapp.views.activities.HawkerSellerACT;
 import com.libertycapital.marketapp.views.activities.ShopSellerACT;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +50,8 @@ public class PersonalDetailsFormFragment extends Fragment {
     private static final int SELECT_FILE = 100;
     private static final int REQUEST_CAMERA = 101;
     private static final int PIC_CROP = 102;
-    static ViewPager mViewPager = ShopSellerACT.viewPager;
+    private static final int RESULT_OK = 0;
+    static ViewPager mViewPager = HawkerSellerACT.viewPager;
     @BindView(R.id.editTextFname)
     EditText editTextFname;
     @BindView(R.id.editTextLname)
@@ -64,13 +66,17 @@ public class PersonalDetailsFormFragment extends Fragment {
     TextInputLayout textInputLayoutOname;
     @BindView(R.id.floatingActionButtonPdetails)
     FloatingActionButton floatingActionButtonPDetails;
+    @BindView(R.id.imageViewSeller)
+    ImageView imageProfile;
     Realm mRealm;
     RealmAsyncTask realmAsyncTask;
-    private ImageView imageProfile;
-    private Uri mPhotoURI;
+
+    private Uri mPhotoURI, mCroppedURI;
     private String data;
     private String encodedImage = "";
+    private File compressedImage;
     private boolean editTextLnameError, editTextFnameError;
+    private byte[] b;
 
 
     public PersonalDetailsFormFragment() {
@@ -99,27 +105,17 @@ public class PersonalDetailsFormFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_personal_details_form, container, false);
         ButterKnife.bind(this, view);
         mRealm = Realm.getDefaultInstance();
-        imageProfile = (ImageView) view.findViewById(R.id.imageViewSeller);
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String newString;
-//        if (savedInstanceState == null) {
-//            Bundle extras = getActivity().getIntent().getExtras();
-//            if(extras == null) {
-//                newString= null;
-//            } else {
-//                newString= extras.getString("sellerId");
-//            }
-//        } else {
-//            newString= (String) savedInstanceState.getSerializable("sellerId");
-//        }
+
         imageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 new MaterialDialog.Builder(getContext())
                         .title(R.string.seller_pic_label)
                         .items(R.array.items_picture_menu)
@@ -132,6 +128,7 @@ public class PersonalDetailsFormFragment extends Fragment {
 //                                    case 0:
 //                                        galleryIntent();
 //                                        break;
+
                                     case 0:
                                         cameraIntent();
                                         break;
@@ -155,38 +152,13 @@ public class PersonalDetailsFormFragment extends Fragment {
                 if (!(editTextFnameError && editTextLnameError)) {
                     Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
                 } else {
-
-
-                    realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
-                        @Override
-                        public void execute(Realm realm) {
-                            SellerMDL sellerMDL = realm.where(SellerMDL.class).findAllSorted("createdDate").last();
-                            sellerMDL.setFirstname(editTextFname.getText().toString());
-                            sellerMDL.setLastname(editTextLname.getText().toString());
-                            if (!editTextOname.getText().toString().isEmpty()) {
-                                sellerMDL.setOtherName(editTextOname.getText().toString());
-                            }
-
-                        }
-                    }, new Realm.Transaction.OnSuccess() {
-                        @Override
-                        public void onSuccess() {
-                            Toast.makeText(getContext(), "Added successfully", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }, new Realm.Transaction.OnError() {
-                        @Override
-                        public void onError(Throwable error) {
-                            Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
+                    StoreData();
 //To go to the next page
-//                    mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
-
                 }
 
             }
+
+
         });
     }
 
@@ -204,14 +176,6 @@ public class PersonalDetailsFormFragment extends Fragment {
         super.onDestroy();
         mRealm.close();
 
-    }
-
-    private void hideKeyboard() {
-        View view = getActivity().getCurrentFocus();
-        if (view != null) {
-            ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).
-                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
     }
 
     private void galleryIntent() {
@@ -252,8 +216,10 @@ public class PersonalDetailsFormFragment extends Fragment {
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
+//        compressImage(image);
 
         mPhotoURI = Uri.fromFile(image);
+
 
         return image;
     }
@@ -269,6 +235,7 @@ public class PersonalDetailsFormFragment extends Fragment {
             cropIntent.putExtra("outputY", 128);
             cropIntent.putExtra("return-data", true);
             startActivityForResult(cropIntent, PIC_CROP);
+
         }
         // respond to users whose devices do not support the crop action
         catch (ActivityNotFoundException anfe) {
@@ -283,11 +250,41 @@ public class PersonalDetailsFormFragment extends Fragment {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-            byte[] b = baos.toByteArray();
+
+            b = baos.toByteArray();
 
             encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+
+
             imageProfile.setImageBitmap(bitmap);
+
             Log.d(TAG, "Ecoded image: " + encodedImage);
+            String root = Environment.getExternalStorageDirectory().toString();
+            File myDir = new File(root + "/saved_images");
+            myDir.mkdirs();
+            Random generator = new Random();
+            int n = 10000;
+            n = generator.nextInt(n);
+            String fname = "Image-" + n + ".jpg";
+            compressedImage = new File(myDir, fname);
+            try {
+                FileOutputStream out = new FileOutputStream(compressedImage);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                out.flush();
+                out.close();
+                mCroppedURI = Uri.fromFile(compressedImage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+//           if (file.exists ()) file.delete ();
+//            tr y {
+//                FileOutputStream out = new FileOutputStream(file);
+//                photo.compress(Bitmap.CompressFormat.JPEG, 90, out);
+//                out.flush();
+//                out.close();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
             //mRemove.setVisibility(View.VISIBLE);
         } catch (Exception e) {
             e.printStackTrace();
@@ -298,6 +295,7 @@ public class PersonalDetailsFormFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         switch (requestCode) {
             case SELECT_FILE:
                 Uri imageUri = data.getData();
@@ -318,6 +316,54 @@ public class PersonalDetailsFormFragment extends Fragment {
                 break;
         }
     }
+
+    private void StoreData() {
+        SellerMDL sellerMDL;
+        realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                SellerMDL sellerMDL = realm.where(SellerMDL.class).findAllSorted("createdDate").last();
+
+                sellerMDL.setFirstname(editTextFname.getText().toString());
+                sellerMDL.setLastname(editTextLname.getText().toString());
+                if (mCroppedURI != null) {
+                    sellerMDL.setPhotoUri(mCroppedURI.getPath());
+                }
+
+                if (!editTextOname.getText().toString().isEmpty()) {
+                    sellerMDL.setOtherName(editTextOname.getText().toString());
+                }
+
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+
+                GenUtils.getToastMessage(getContext(), getResources().getString(R.string.store_db_successfull));
+
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+
+                GenUtils.getToastMessage(getContext(), error.getMessage());
+
+            }
+        });
+    }
+
+
+//    not working
+
+    private void setViewpager(SellerMDL sellerMDL, ViewPager viewPager) {
+        if (sellerMDL.getSellerType().equalsIgnoreCase(getString(R.string.hawker_string))) {
+            viewPager = HawkerSellerACT.viewPager;
+        } else if (sellerMDL.getSellerType().equalsIgnoreCase(getString(R.string.hawker_string))) {
+            viewPager = ShopSellerACT.viewPager;
+        }
+        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+    }
+
 
     private class MyTextWatcher implements TextWatcher {
 
@@ -353,5 +399,5 @@ public class PersonalDetailsFormFragment extends Fragment {
         }
     }
 
-
 }
+

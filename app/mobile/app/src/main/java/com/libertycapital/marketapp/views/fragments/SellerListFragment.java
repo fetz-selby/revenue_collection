@@ -17,6 +17,7 @@ import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 import com.yqritc.recyclerviewflexibledivider.VerticalDividerItemDecoration;
 
 import io.realm.Realm;
+import io.realm.Sort;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -42,7 +43,7 @@ public class SellerListFragment extends Fragment {
     }
 
     private void setUpRecyclerView() {
-        sellerListAdapter = new SellerListAdapter(realm.where(SellerMDL.class).findAllAsync());
+        sellerListAdapter = new SellerListAdapter(realm.where(SellerMDL.class).findAllSortedAsync("createdDate", Sort.DESCENDING));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(sellerListAdapter);
         recyclerView.setHasFixedSize(true);

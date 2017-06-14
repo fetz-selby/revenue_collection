@@ -53,7 +53,6 @@ public class ContactDetailsFormFragment extends Fragment {
     FloatingActionButton floatingActionButtonContact;
     Realm mRealm;
     RealmAsyncTask realmAsyncTask;
-    String mobileNetwork = "";
     private boolean isMobileMoney, editTextPhoneError;
 
 

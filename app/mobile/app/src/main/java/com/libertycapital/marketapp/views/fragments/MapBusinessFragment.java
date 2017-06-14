@@ -19,6 +19,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.libertycapital.marketapp.R;
+import com.libertycapital.marketapp.models.LocationMDL;
+import com.libertycapital.marketapp.models.SellerMDL;
+import com.libertycapital.marketapp.utils.GenUtils;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -33,9 +36,12 @@ import com.mapbox.services.android.telemetry.permissions.PermissionsListener;
 import com.mapbox.services.android.telemetry.permissions.PermissionsManager;
 
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
+import io.realm.RealmAsyncTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +60,8 @@ public class MapBusinessFragment extends Fragment implements PermissionsListener
     public static final String JSON_FIELD_REGION_NAME = "FIELD_REGION_NAME";
     @BindView(R.id.mapView)
     MapView mapView;
+    Realm mRealm;
+    RealmAsyncTask realmAsyncTask;
     private MapboxMap map;
     private FloatingActionButton floatingActionButton;
     private LocationEngine locationEngine;
@@ -91,6 +99,7 @@ public class MapBusinessFragment extends Fragment implements PermissionsListener
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_map_business, container, false);
         ButterKnife.bind(this, view);
+        mRealm = Realm.getDefaultInstance();
 
         // Get the location engine object for later use.
         locationEngine = LocationSource.getLocationEngine(getContext());
@@ -98,95 +107,11 @@ public class MapBusinessFragment extends Fragment implements PermissionsListener
 
         mapView.onCreate(savedInstanceState);
 
-        mapView.onCreate(savedInstanceState);
-//        mapView.setStyleUrl("assets://mapbox-raster-v8.json");
+
         mapView.getMapAsync(new OnMapReadyCallback() {
 
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
-//                // Set up the OfflineManager
-//                offlineManager = OfflineManager.getInstance(getActivity());
-//
-//
-//                // Create a bounding box for the offline region
-//                LatLngBounds latLngBounds = new LatLngBounds.Builder()
-//                        .include(new LatLng(10.974011, -2.791992))
-//                        .include(new LatLng(6.108251, 1.163086))
-////                        .include(new LatLng(37.6744, -119.6815)) // Southwest
-//                        .build();
-//
-//                // Define the offline region
-//                OfflineTilePyramidRegionDefinition definition = new OfflineTilePyramidRegionDefinition(
-//                        mapboxMap.getStyleUrl(),
-//                        latLngBounds,
-//                        10,
-//                        20,
-//                        getActivity().getResources().getDisplayMetrics().density);
-//
-//                // Set the metadata
-//                byte[] metadata;
-//                try {
-//                    JSONObject jsonObject = new JSONObject();
-//                    jsonObject.put(JSON_FIELD_REGION_NAME, "Ghana");
-//                    String json = jsonObject.toString();
-//                    metadata = json.getBytes(JSON_CHARSET);
-//                } catch (Exception exception) {
-//                    Log.e(TAG, "Failed to encode metadata: " + exception.getMessage());
-//                    metadata = null;
-//                }
-//
-//                // Create the region asynchronously
-//                offlineManager.createOfflineRegion(
-//                        definition,
-//                        metadata,
-//                        new OfflineManager.CreateOfflineRegionCallback() {
-//                            @Override
-//                            public void onCreate(OfflineRegion offlineRegion) {
-//                                offlineRegion.setDownloadState(OfflineRegion.STATE_ACTIVE);
-//
-//                                // Display the download progress bar
-//                                progressBar = (ProgressBar) view.findViewById(R.id.progressBarMap);
-//                                startProgress();
-//
-//                                // Monitor the download progress using setObserver
-//                                offlineRegion.setObserver(new OfflineRegion.OfflineRegionObserver() {
-//                                    @Override
-//                                    public void onStatusChanged(OfflineRegionStatus status) {
-//
-//                                        // Calculate the download percentage and update the progress bar
-//                                        double percentage = status.getRequiredResourceCount() >= 0
-//                                                ? (100.0 * status.getCompletedResourceCount() / status.getRequiredResourceCount()) :
-//                                                0.0;
-//
-//                                        if (status.isComplete()) {
-//                                            // Download complete
-//                                            endProgress("Region downloaded successfully.");
-//                                        } else if (status.isRequiredResourceCountPrecise()) {
-//                                            // Switch to determinate state
-//                                            setPercentage((int) Math.round(percentage));
-//                                        }
-//                                    }
-//
-//                                    @Override
-//                                    public void onError(OfflineRegionError error) {
-//                                        // If an error occurs, print to logcat
-//                                        Log.e(TAG, "onError reason: " + error.getReason());
-//                                        Log.e(TAG, "onError message: " + error.getMessage());
-//                                    }
-//
-//                                    @Override
-//                                    public void mapboxTileCountLimitExceeded(long limit) {
-//                                        // Notify if offline region exceeds maximum tile count
-//                                        Log.e(TAG, "Mapbox tile count limit exceeded: " + limit);
-//                                    }
-//                                });
-//                            }
-//
-//                            @Override
-//                            public void onError(String error) {
-//                                Log.e(TAG, "Error: " + error);
-//                            }
-//                        });
 
 
                 map = mapboxMap;
@@ -238,42 +163,23 @@ public class MapBusinessFragment extends Fragment implements PermissionsListener
     @Override
     public void onPause() {
         super.onPause();
-//        mapView.onPause();
-//        offlineManager.listOfflineRegions(new OfflineManager.ListOfflineRegionsCallback() {
-//            @Override
-//            public void onList(OfflineRegion[] offlineRegions) {
-//                if (offlineRegions.length > 0) {
-//                    // delete the last item in the offlineRegions list which will be yosemite offline map
-//                    offlineRegions[(offlineRegions.length - 1)].delete(new OfflineRegion.OfflineRegionDeleteCallback() {
-//                        @Override
-//                        public void onDelete() {
-//                            Toast.makeText(getActivity(), "Ghana map deleted", Toast.LENGTH_LONG).show();
-//                        }
-//
-//                        @Override
-//                        public void onError(String error) {
-//                            Log.e(TAG, "On Delete error: " + error);
-//                        }
-//                    });
-//                }
-//            }
-//
-//            @Override
-//            public void onError(String error) {
-//                Log.e(TAG, "onListError: " + error);
-//            }
-//        });
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
         mapView.onStop();
+        if (realmAsyncTask != null && !realmAsyncTask.isCancelled()) {
+            realmAsyncTask.cancel();
+
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mRealm.close();
         mapView.onDestroy();
         // Ensure no memory leak occurs if we register the location listener but the call hasn't
         // been made yet.
@@ -350,7 +256,9 @@ public class MapBusinessFragment extends Fragment implements PermissionsListener
                         // changes. When the user disables and then enables the location again, this
                         // listener is registered again and will adjust the camera once again.
                         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location), 16));
+                        storeData(location);
                         locationEngine.removeLocationEngineListener(this);
+
                     }
                 }
             };
@@ -412,6 +320,37 @@ public class MapBusinessFragment extends Fragment implements PermissionsListener
 
         // Show a toast
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    private void storeData(final Location location) {
+        realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                SellerMDL sellerMDL = realm.where(SellerMDL.class).findAllSorted("createdDate").last();
+
+                String id = UUID.randomUUID().toString();
+                LocationMDL locationMDL = realm.createObject(LocationMDL.class, id);
+                locationMDL.setLatitude(location.getLatitude());
+                locationMDL.setLongitude(location.getLongitude());
+                sellerMDL.setLocationMDL(locationMDL);
+
+
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+
+                GenUtils.getToastMessage(getContext(), "Added successfully");
+
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                GenUtils.getToastMessage(getContext(), error.getMessage());
+            }
+        });
+//        setViewpager(sellerMDL,mViewPager);
+
     }
 
     public interface OnFragmentInteractionListener {
