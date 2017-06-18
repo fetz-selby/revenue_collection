@@ -13,6 +13,33 @@ public class ContactMDL extends RealmObject {
     private String mobileNetwork;
     private String PhoneNumber;
     private boolean isMobileMoney;
+    private String createdBy;
+    private String dateCreated;
+    private String dateModified;
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public String getDateModified() {
+        return dateModified;
+    }
+
+    public void setDateModified(String dateModified) {
+        this.dateModified = dateModified;
+    }
 
     public String getMobileNetwork() {
         return mobileNetwork;

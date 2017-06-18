@@ -30,12 +30,24 @@
 
     <com.mapbox.mapboxsdk.maps.MapView
         android:id="@+id/mapView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="388dp"
+        android:layout_height="507dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        mapbox:mapbox_styleUrl="@string/mapbox_style_satellite" />
+        mapbox:mapbox_styleUrl="@string/mapbox_style_mapbox_streets"
+        tools:layout_editor_absoluteX="19dp"
+        android:layout_marginTop="0dp"
+        tools:layout_editor_absoluteY="4dp" >
+
+        <ProgressBar
+            android:id="@+id/progressBarMap"
+            style="?android:attr/progressBarStyle"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.mapbox.mapboxsdk.maps.MapView>
 
 </android.support.constraint.ConstraintLayout>

@@ -15,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.libertycapital.marketapp.R;
@@ -25,6 +26,7 @@ import com.mapbox.mapboxsdk.location.LocationSource;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapbox.mapboxsdk.offline.OfflineManager;
 import com.mapbox.services.android.telemetry.location.LocationEngine;
 import com.mapbox.services.android.telemetry.location.LocationEngineListener;
 import com.mapbox.services.android.telemetry.permissions.PermissionsListener;
@@ -46,6 +48,10 @@ import butterknife.ButterKnife;
 public class MapBusinessFragment extends Fragment implements PermissionsListener {
 
     public static final int PERMISSION_ACCESS_COARSE_LOCATION = 99;
+    public static final String TAG = MapBusinessFragment.class.getName();
+    // JSON encoding/decoding
+    public static final String JSON_CHARSET = "UTF-8";
+    public static final String JSON_FIELD_REGION_NAME = "FIELD_REGION_NAME";
     @BindView(R.id.mapView)
     MapView mapView;
     private MapboxMap map;
@@ -53,8 +59,9 @@ public class MapBusinessFragment extends Fragment implements PermissionsListener
     private LocationEngine locationEngine;
     private LocationEngineListener locationEngineListener;
     private PermissionsManager permissionsManager;
-
-
+    private boolean isEndNotified;
+    private ProgressBar progressBar;
+    private OfflineManager offlineManager;
     private OnFragmentInteractionListener mListener;
 
     public MapBusinessFragment() {
@@ -82,7 +89,7 @@ public class MapBusinessFragment extends Fragment implements PermissionsListener
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_map_business, container, false);
+        final View view = inflater.inflate(R.layout.fragment_map_business, container, false);
         ButterKnife.bind(this, view);
 
         // Get the location engine object for later use.
@@ -94,8 +101,94 @@ public class MapBusinessFragment extends Fragment implements PermissionsListener
         mapView.onCreate(savedInstanceState);
 //        mapView.setStyleUrl("assets://mapbox-raster-v8.json");
         mapView.getMapAsync(new OnMapReadyCallback() {
+
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
+//                // Set up the OfflineManager
+//                offlineManager = OfflineManager.getInstance(getActivity());
+//
+//
+//                // Create a bounding box for the offline region
+//                LatLngBounds latLngBounds = new LatLngBounds.Builder()
+//                        .include(new LatLng(10.974011, -2.791992))
+//                        .include(new LatLng(6.108251, 1.163086))
+////                        .include(new LatLng(37.6744, -119.6815)) // Southwest
+//                        .build();
+//
+//                // Define the offline region
+//                OfflineTilePyramidRegionDefinition definition = new OfflineTilePyramidRegionDefinition(
+//                        mapboxMap.getStyleUrl(),
+//                        latLngBounds,
+//                        10,
+//                        20,
+//                        getActivity().getResources().getDisplayMetrics().density);
+//
+//                // Set the metadata
+//                byte[] metadata;
+//                try {
+//                    JSONObject jsonObject = new JSONObject();
+//                    jsonObject.put(JSON_FIELD_REGION_NAME, "Ghana");
+//                    String json = jsonObject.toString();
+//                    metadata = json.getBytes(JSON_CHARSET);
+//                } catch (Exception exception) {
+//                    Log.e(TAG, "Failed to encode metadata: " + exception.getMessage());
+//                    metadata = null;
+//                }
+//
+//                // Create the region asynchronously
+//                offlineManager.createOfflineRegion(
+//                        definition,
+//                        metadata,
+//                        new OfflineManager.CreateOfflineRegionCallback() {
+//                            @Override
+//                            public void onCreate(OfflineRegion offlineRegion) {
+//                                offlineRegion.setDownloadState(OfflineRegion.STATE_ACTIVE);
+//
+//                                // Display the download progress bar
+//                                progressBar = (ProgressBar) view.findViewById(R.id.progressBarMap);
+//                                startProgress();
+//
+//                                // Monitor the download progress using setObserver
+//                                offlineRegion.setObserver(new OfflineRegion.OfflineRegionObserver() {
+//                                    @Override
+//                                    public void onStatusChanged(OfflineRegionStatus status) {
+//
+//                                        // Calculate the download percentage and update the progress bar
+//                                        double percentage = status.getRequiredResourceCount() >= 0
+//                                                ? (100.0 * status.getCompletedResourceCount() / status.getRequiredResourceCount()) :
+//                                                0.0;
+//
+//                                        if (status.isComplete()) {
+//                                            // Download complete
+//                                            endProgress("Region downloaded successfully.");
+//                                        } else if (status.isRequiredResourceCountPrecise()) {
+//                                            // Switch to determinate state
+//                                            setPercentage((int) Math.round(percentage));
+//                                        }
+//                                    }
+//
+//                                    @Override
+//                                    public void onError(OfflineRegionError error) {
+//                                        // If an error occurs, print to logcat
+//                                        Log.e(TAG, "onError reason: " + error.getReason());
+//                                        Log.e(TAG, "onError message: " + error.getMessage());
+//                                    }
+//
+//                                    @Override
+//                                    public void mapboxTileCountLimitExceeded(long limit) {
+//                                        // Notify if offline region exceeds maximum tile count
+//                                        Log.e(TAG, "Mapbox tile count limit exceeded: " + limit);
+//                                    }
+//                                });
+//                            }
+//
+//                            @Override
+//                            public void onError(String error) {
+//                                Log.e(TAG, "Error: " + error);
+//                            }
+//                        });
+
+
                 map = mapboxMap;
             }
         });
@@ -145,7 +238,31 @@ public class MapBusinessFragment extends Fragment implements PermissionsListener
     @Override
     public void onPause() {
         super.onPause();
-        mapView.onPause();
+//        mapView.onPause();
+//        offlineManager.listOfflineRegions(new OfflineManager.ListOfflineRegionsCallback() {
+//            @Override
+//            public void onList(OfflineRegion[] offlineRegions) {
+//                if (offlineRegions.length > 0) {
+//                    // delete the last item in the offlineRegions list which will be yosemite offline map
+//                    offlineRegions[(offlineRegions.length - 1)].delete(new OfflineRegion.OfflineRegionDeleteCallback() {
+//                        @Override
+//                        public void onDelete() {
+//                            Toast.makeText(getActivity(), "Ghana map deleted", Toast.LENGTH_LONG).show();
+//                        }
+//
+//                        @Override
+//                        public void onError(String error) {
+//                            Log.e(TAG, "On Delete error: " + error);
+//                        }
+//                    });
+//                }
+//            }
+//
+//            @Override
+//            public void onError(String error) {
+//                Log.e(TAG, "onListError: " + error);
+//            }
+//        });
     }
 
     @Override
@@ -266,6 +383,35 @@ public class MapBusinessFragment extends Fragment implements PermissionsListener
                     Toast.LENGTH_LONG).show();
             getActivity().finish();
         }
+    }
+
+    // Progress bar methods
+    private void startProgress() {
+
+        // Start and show the progress bar
+        isEndNotified = false;
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void setPercentage(final int percentage) {
+        progressBar.setIndeterminate(false);
+        progressBar.setProgress(percentage);
+    }
+
+    private void endProgress(final String message) {
+        // Don't notify more than once
+        if (isEndNotified) {
+            return;
+        }
+
+        // Stop and hide the progress bar
+        isEndNotified = true;
+        progressBar.setIndeterminate(false);
+        progressBar.setVisibility(View.GONE);
+
+        // Show a toast
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
     public interface OnFragmentInteractionListener {

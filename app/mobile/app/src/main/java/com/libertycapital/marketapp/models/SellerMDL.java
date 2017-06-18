@@ -1,5 +1,6 @@
 package com.libertycapital.marketapp.models;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -15,15 +16,99 @@ public class SellerMDL extends RealmObject {
     private String lastname;
     private String otherName;
     private String photo;
+    private String photoUri;
     private String businessType;
     private String businessCategory;
-    private String section;
+    private String landmark;
     private String lane;
-    private ContactMDL contactMDL;
     private UserMDL createdBy;
     private String createdDate;
-    private String modifiedData;
+    private String modifiedDate;
     private String status;
+    private String market;
+    private String shopType;
+    private String sellerType;
+    private RealmList<ContactMDL> contactMDLs;
+    private RealmList<PaymentMDL> paymentMDLs;
+    private LocationMDL locationMDL;
+
+    public SellerMDL() {
+
+    }
+
+    public SellerMDL(String id, String firstname, String lastname, String otherName, String photo, UserMDL createdBy, String createdDate) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.otherName = otherName;
+        this.photo = photo;
+        this.createdBy = createdBy;
+        this.createdDate = createdDate;
+    }
+
+    public String getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(String modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public String getMarket() {
+        return market;
+    }
+
+    public void setMarket(String market) {
+        this.market = market;
+    }
+
+    public String getShopType() {
+        return shopType;
+    }
+
+    public void setShopType(String shopType) {
+        this.shopType = shopType;
+    }
+
+    public String getSellerType() {
+        return sellerType;
+    }
+
+    public void setSellerType(String sellerType) {
+        this.sellerType = sellerType;
+    }
+
+    public String getLandmark() {
+        return landmark;
+    }
+
+    public void setLandmark(String landmark) {
+        this.landmark = landmark;
+    }
+
+    public RealmList<ContactMDL> getContactMDLs() {
+        return contactMDLs;
+    }
+
+    public void setContactMDLs(RealmList<ContactMDL> contactMDLs) {
+        this.contactMDLs = contactMDLs;
+    }
+
+    public LocationMDL getLocationMDL() {
+        return locationMDL;
+    }
+
+    public void setLocationMDL(LocationMDL locationMDL) {
+        this.locationMDL = locationMDL;
+    }
+
+    public RealmList<PaymentMDL> getPaymentMDLs() {
+        return paymentMDLs;
+    }
+
+    public void setPaymentMDLs(RealmList<PaymentMDL> paymentMDLs) {
+        this.paymentMDLs = paymentMDLs;
+    }
 
     public String getOtherName() {
         return otherName;
@@ -50,11 +135,11 @@ public class SellerMDL extends RealmObject {
     }
 
     public String getSection() {
-        return section;
+        return landmark;
     }
 
-    public void setSection(String section) {
-        this.section = section;
+    public void setSection(String landmark) {
+        this.landmark = landmark;
     }
 
     public String getLane() {
@@ -82,11 +167,11 @@ public class SellerMDL extends RealmObject {
     }
 
     public String getModifiedData() {
-        return modifiedData;
+        return modifiedDate;
     }
 
-    public void setModifiedData(String modifiedData) {
-        this.modifiedData = modifiedData;
+    public void setModifiedData(String modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public String getStatus() {
@@ -96,16 +181,6 @@ public class SellerMDL extends RealmObject {
     public void setStatus(String status) {
         this.status = status;
     }
-
-
-    public ContactMDL getContactMDL() {
-        return contactMDL;
-    }
-
-    public void setContactMDL(ContactMDL contactMDL) {
-        this.contactMDL = contactMDL;
-    }
-
 
     public String getBusinessType() {
         return businessType;
@@ -145,6 +220,14 @@ public class SellerMDL extends RealmObject {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
     }
 
 

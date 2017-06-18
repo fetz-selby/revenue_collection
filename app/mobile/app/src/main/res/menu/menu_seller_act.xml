@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.libertycapital.marketapp.views.activities.SellerACT">
+    tools:context="com.libertycapital.marketapp.views.activities.ShopSellerACT">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
