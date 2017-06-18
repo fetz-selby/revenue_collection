@@ -1,6 +1,6 @@
 var express = require('express'),
 	People 	= require('../models/people'),
-	Payment	= require('../models/Payment'),
+	Payment	= require('../models/payment'),
 	helper  = require('../services/helper_service');
 
 
