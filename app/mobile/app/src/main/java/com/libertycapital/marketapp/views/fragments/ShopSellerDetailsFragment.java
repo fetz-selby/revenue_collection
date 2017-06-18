@@ -1,7 +1,6 @@
 package com.libertycapital.marketapp.views.fragments;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -12,7 +11,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -64,6 +62,7 @@ public class ShopSellerDetailsFragment extends Fragment {
         ButterKnife.bind(this, view);
         mRealm = Realm.getDefaultInstance();
 
+
         return view;
     }
 
@@ -89,10 +88,10 @@ public class ShopSellerDetailsFragment extends Fragment {
         floatingActionButtonShopSeller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editTextLandmarkError= GenUtils.isEmpty(editTextLandmark, textInputLayoutLandmark, "Landmark required");
+                editTextLandmarkError = GenUtils.isEmpty(editTextLandmark, textInputLayoutLandmark, "Landmark required");
 
 
-                if (spinnerMarket.getSelectedItem() == null && spinnerShopType.getSelectedItem() ==null && !editTextLandmarkError) {
+                if (spinnerMarket.getSelectedItem() == null && spinnerShopType.getSelectedItem() == null && !editTextLandmarkError) {
                     getToastMessage(getContext(), "Please select a market and a shop");
                     getToastMessage(getContext(), "Landmark required");
                 } else {
@@ -121,13 +120,6 @@ public class ShopSellerDetailsFragment extends Fragment {
 
     }
 
-    private void hideKeyboard() {
-        View view = getActivity().getCurrentFocus();
-        if (view != null) {
-            ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).
-                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-    }
 
     private void storeData() {
         realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
@@ -135,13 +127,13 @@ public class ShopSellerDetailsFragment extends Fragment {
             public void execute(Realm realm) {
                 SellerMDL sellerMDL = realm.where(SellerMDL.class).findAllSorted("createdDate").last();
                 String id = UUID.randomUUID().toString();
-                if (spinnerMarket.getSelectedItem().toString()!=null){
+                if (spinnerMarket.getSelectedItem().toString() != null) {
                     sellerMDL.setMarket(spinnerMarket.getSelectedItem().toString());
-                }if (spinnerShopType.getSelectedItem().toString()!=null){
-                    sellerMDL.setMarket(spinnerShopType.getSelectedItem().toString());
+                }
+                if (spinnerShopType.getSelectedItem().toString() != null) {
+                    sellerMDL.setShopType(spinnerShopType.getSelectedItem().toString());
                 }
 
-                sellerMDL.setMarket(spinnerShopType.getSelectedItem().toString());
 
                 sellerMDL.setLandmark(editTextLandmark.getText().toString());
 
@@ -184,15 +176,6 @@ public class ShopSellerDetailsFragment extends Fragment {
         @Override
         public void afterTextChanged(Editable s) {
 
-//            switch (view.getId()) {
-//                case R.id.editTextUsername:
-//                    GenUtils.isEmpty(editTextUsername, textInputLayoutUsername, "Enter your username");
-//                    break;
-//                case R.id.editTextPassword:
-//                    GenUtils.isEmpty(editTextPassword, textInputLayoutPassword, "Enter your password");
-//                    break;
-//                default:
-//            }
         }
     }
 
