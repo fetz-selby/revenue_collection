@@ -3,8 +3,17 @@ var Schema = mongoose.Schema;
 
 var marketSchema = new Schema({
 	name   			: String,
-	district 		: { type: Schema.Types.ObjectId, ref: 'District' }
+	district 		: { type: Schema.Types.ObjectId, ref: 'District' },
 	location 		: String
+	categories		: [{
+		name		: String,
+		amount		: {
+			daily	: Number,
+			weekly	: Number,
+			quarterly: Number,
+			yearly	: Number
+		}
+	}]
 	
 });
 

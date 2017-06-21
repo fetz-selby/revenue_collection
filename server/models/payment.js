@@ -7,8 +7,8 @@ var paymentSchema = new Schema({
 		amount 			: Number,
 		createdBy 		: { type: Schema.Types.ObjectId, ref: 'Agent' },
 		date 			: Date,
-		createdDate 	: { type: Date, default: Date.now },
-		status 			: { type: String, default: 'A' }
+		createdDate 	: { type: Date, default: Date.now }
+		modifiedDate 	: { type: Date, default: Date.now }
 	}]
 	
 	
