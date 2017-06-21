@@ -6,7 +6,7 @@
     tools:context="com.libertycapital.marketapp.views.fragments.HawkerDetailsFragment">
 
     <Spinner
-        android:id="@+id/spinnerBussinessType"
+        android:id="@+id/spinnerMarket"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinnerBusinessCategory"
+        android:id="@+id/spinnerHawkerType"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -29,7 +29,7 @@
         android:layout_marginTop="34dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerBussinessType" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMarket" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayoutLandmark"
@@ -40,7 +40,7 @@
         android:layout_marginTop="19dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerBusinessCategory"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerHawkerType"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp">
 

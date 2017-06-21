@@ -138,15 +138,9 @@ public class ContactDetailsFormFragment extends Fragment {
             @Override
             public void execute(Realm realm) {
                 SellerMDL sellerMDL = realm.where(SellerMDL.class).findAllSorted("createdDate").last();
-                String id = UUID.randomUUID().toString();
-                ContactMDL contactMDL = realm.createObject(ContactMDL.class, id);
-                contactMDL.setPhoneNumber(editTextPhone.getText().toString());
-                contactMDL.setMobileNetwork(spinnerMobileMoney.getSelectedItem().toString());
-                contactMDL.setMobileMoney(isMobileMoney);
-                RealmList<ContactMDL> contactMDLs = new RealmList<>();
-                contactMDLs.add(contactMDL);
-                sellerMDL.setContactMDLs(contactMDLs);
-
+                sellerMDL.setPhone(editTextPhone.getText().toString());
+                sellerMDL.setMobileNetwork(spinnerMobileMoney.getSelectedItem().toString());
+                sellerMDL.setMobileMoney(isMobileMoney);
 
             }
         }, new Realm.Transaction.OnSuccess() {

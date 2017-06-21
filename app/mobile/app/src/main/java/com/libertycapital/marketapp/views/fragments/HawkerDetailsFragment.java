@@ -5,16 +5,22 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.libertycapital.marketapp.R;
+import com.libertycapital.marketapp.models.SellerMDL;
+import com.libertycapital.marketapp.utils.GenUtils;
 import com.libertycapital.marketapp.views.adapters.HintSpinnerAdapter;
+
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +28,7 @@ import io.realm.Realm;
 import io.realm.RealmAsyncTask;
 
 import static com.libertycapital.marketapp.utils.GenUtils.getCharSequenceArrayAdapter;
+import static com.libertycapital.marketapp.utils.GenUtils.getToastMessage;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,14 +42,21 @@ public class HawkerDetailsFragment extends Fragment {
 
     @BindView(R.id.floatingActionButtonBusiness)
     FloatingActionButton floatingActionButtonBusiness;
-    @BindView(R.id.spinnerBussinessType)
-    Spinner spinnerBusinessType;
-    @BindView(R.id.spinnerBusinessCategory)
-    Spinner spinnerBusinessCategory;
+    @BindView(R.id.spinnerMarket)
+    Spinner spinnerMarket;
+    @BindView(R.id.spinnerHawkerType)
+    Spinner spinnerHawkerType;
     @BindView(R.id.editTextLandmark)
     EditText editTextLandmark;
+    @BindView(R.id.textInputLayoutLandmark)
+    TextInputLayout textInputLayoutLandmark;
+    @BindView(R.id.checkBoxSellingOnTable)
+    CheckBox checkBoxSellingOnTable;
+    @BindView(R.id.checkBoxSellingOnTheFloor)
+    CheckBox getCheckBoxSellingOnTheFloor;
     Realm mRealm;
     RealmAsyncTask realmAsyncTask;
+    private boolean editTextLandmarkError;
 
 
     private OnFragmentInteractionListener mListener;
@@ -70,7 +84,7 @@ public class HawkerDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View view =  inflater.inflate(R.layout.fragment_hawker_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_hawker_details, container, false);
         ButterKnife.bind(this, view);
         mRealm = Realm.getDefaultInstance();
         return view;
@@ -81,38 +95,38 @@ public class HawkerDetailsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ArrayAdapter<CharSequence> adapterBusinessType =
-                getCharSequenceArrayAdapter(getActivity(),R.array.items_markets,
+        ArrayAdapter<CharSequence> adapterMarket =
+                getCharSequenceArrayAdapter(getActivity(), R.array.items_markets,
                         android.R.layout.simple_spinner_item);
 
-        ArrayAdapter<CharSequence> adapterBusinessCategory =
-                getCharSequenceArrayAdapter(getActivity(),R.array.items_hawker,
+        ArrayAdapter<CharSequence> adapterHawkerType =
+                getCharSequenceArrayAdapter(getActivity(), R.array.items_hawker,
                         android.R.layout.simple_spinner_item);
 
-//        ArrayAdapter<CharSequence> adapterSection =
-//                getCharSequenceArrayAdapter(getActivity(),R.array.items_section,
-//                        android.R.layout.simple_spinner_item);
-//
-//        ArrayAdapter<CharSequence> adapterLane =
-//                getCharSequenceArrayAdapter(getActivity(),R.array.items_lane,
-//                        android.R.layout.simple_spinner_item);
 
+        spinnerMarket.setAdapter(new HintSpinnerAdapter(
+                adapterMarket, R.layout.hint_market, getContext()));
 
-        spinnerBusinessType.setAdapter(new HintSpinnerAdapter(
-                adapterBusinessType, R.layout.hint_market, getContext()));
+        spinnerHawkerType.setAdapter(new HintSpinnerAdapter(
+                adapterHawkerType, R.layout.hint_hawker, getContext()));
 
-        spinnerBusinessCategory.setAdapter(new HintSpinnerAdapter(
-                adapterBusinessCategory, R.layout.hint_hawker, getContext()));
+        floatingActionButtonBusiness.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editTextLandmarkError = GenUtils.isEmpty(editTextLandmark, textInputLayoutLandmark, "Landmark required");
 
-//        spinnerSection.setAdapter(new HintSpinnerAdapter(
-//                adapterSection, R.layout.hint_section, getContext()));
-//
-//        spinnerLane.setAdapter(new HintSpinnerAdapter(
-//                adapterLane, R.layout.hint_lane, getContext()));
-//
+                if (spinnerMarket.getSelectedItem() == null && spinnerHawkerType.getSelectedItem() == null && !editTextLandmarkError) {
+                    getToastMessage(getContext(), "Please select a market and a hawker category");
+                    getToastMessage(getContext(), "Landmark required");
+
+                } else {
+                    storeData();
+                }
+            }
+        });
+
 
     }
-
 
 
     public void onButtonPressed(Uri uri) {
@@ -133,6 +147,57 @@ public class HawkerDetailsFragment extends Fragment {
         mListener = null;
     }
 
+    private void storeData() {
+        realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                SellerMDL sellerMDL = realm.where(SellerMDL.class).findAllSorted("createdDate").last();
+                String id = UUID.randomUUID().toString();
+                if (spinnerMarket.getSelectedItem().toString() != null) {
+                    sellerMDL.setMarket(spinnerMarket.getSelectedItem().toString());
+                }
+                if (spinnerHawkerType.getSelectedItem().toString() != null) {
+                    sellerMDL.setSellerCategory(spinnerHawkerType.getSelectedItem().toString());
+                }
+
+                sellerMDL.setMarket(spinnerHawkerType.getSelectedItem().toString());
+
+                sellerMDL.setLandmark(editTextLandmark.getText().toString());
+
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+
+                GenUtils.getToastMessage(getContext(), "Added successfully");
+
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                GenUtils.getToastMessage(getContext(), "Market and hawker type  are required");
+            }
+        });
+//        setViewpager(sellerMDL,mViewPager);
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (realmAsyncTask != null && !realmAsyncTask.isCancelled()) {
+            realmAsyncTask.cancel();
+
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mRealm.close();
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -147,4 +212,5 @@ public class HawkerDetailsFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

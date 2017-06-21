@@ -9,7 +9,9 @@ public class Constants {
 
     public static final String EMPTY_STRING = "";
     public static final String VOLLEY_GET_TAG = "VOLLEY_GET_TAG";
-    public static final String url = "http://192.168.1.135:8001/eghana/esurvey/api/property";
+    public static final String url ="https://revenue-api.herokuapp.com";
+    public static final String SELLERS_URL =  url + "/eghana/revenue/api/sellers";
+    public static final String PAYMENT_URL = url + "/eghana/revenue/api/payments";
     public static final String LOCAL_PROPERTY_URL = url+ "/eghana/esurvey/api/property";
     public static final String LOGIN_URL = "https://esurvey-api.herokuapp.com/eghana/esurvey/api/auth/agents/login";
     public static final String DISTRICT_URL = "https://esurvey-api.herokuapp.com/eghana/esurvey/api/districts";

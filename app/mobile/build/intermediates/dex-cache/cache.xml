@@ -3,21 +3,30 @@
 
     <item
         is-multidex="true"
-        jar="/root/AndroidStudioProjects/revenue/app/mobile/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="9b406513981eedf44532ea4f1f010c56a434be48">
-        <dex dex="/root/AndroidStudioProjects/revenue/app/mobile/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_6713db3af58e052617fbbbe79e225326ab41dd84/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/root/AndroidStudioProjects/revenue/app/mobile/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
         <dex dex="/root/AndroidStudioProjects/revenue/app/mobile/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_81926aaa61617494bfcbeacc14132a4b1dc95690/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/root/AndroidStudioProjects/revenue/app/mobile/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a7e0a0ba6123af8c4773bee5d113fd8f105796c5">
+        <dex dex="/root/AndroidStudioProjects/revenue/app/mobile/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_6713db3af58e052617fbbbe79e225326ab41dd84/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/root/.android/build-cache/c16c1b075d99110d363cb71b352fe106aeefabb3/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b0c8dd6d1bb4fd1d983f1731c3b1a59cf4ac8dbf">
+        <dex dex="/root/AndroidStudioProjects/revenue/app/mobile/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_b5fce630b1860cbdca40fd5ff6284b8638e97447/classes.dex" />
     </item>
 
 </items>

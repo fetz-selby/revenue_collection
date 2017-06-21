@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import com.libertycapital.marketapp.views.fragments.ContactDetailsFormFragment;
+import com.libertycapital.marketapp.views.fragments.FinalStepFragment;
 import com.libertycapital.marketapp.views.fragments.HawkerDetailsFragment;
 import com.libertycapital.marketapp.views.fragments.MapBusinessFragment;
 import com.libertycapital.marketapp.views.fragments.PersonalDetailsFormFragment;
@@ -19,7 +20,7 @@ public class HawkerViewPagerAdapter extends SmartFragmentStatePagerAdapter {
     private SmartFragmentStatePagerAdapter adapterViewPager;
 
 
-    private String tabTitles[] = new String[]{"Personal", "Contact", "Business", "Location"};
+    private String tabTitles[] = new String[]{"Personal", "Contact", "Business", "Location","Submit"};
     //in PagerAdapter:
     private List<Fragment> fragmentList;
 
@@ -46,6 +47,8 @@ public class HawkerViewPagerAdapter extends SmartFragmentStatePagerAdapter {
                 return new HawkerDetailsFragment();
             case 3:
                 return new MapBusinessFragment();
+            case 4:
+                return new FinalStepFragment();
 
 
         }

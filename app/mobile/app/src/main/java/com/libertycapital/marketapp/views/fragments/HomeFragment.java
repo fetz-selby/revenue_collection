@@ -24,8 +24,8 @@ public class HomeFragment extends Fragment {
     public static final String HOMETAG = HomeFragment.class.getName();
     @BindView(R.id.buttonRegisterSeller)
     Button buttonRegisterSeller;
-    @BindView(R.id.buttonCollectTaxes)
-    Button buttonCollectTaxes;
+//    @BindView(R.id.buttonCollectTaxes)
+//    Button buttonCollectTaxes;
     @BindView(R.id.buttonSellerList)
     Button buttonSellerList;
     private Realm mRealm;
@@ -51,12 +51,12 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        buttonCollectTaxes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), SellerProfileACT.class));
-            }
-        });
+//        buttonCollectTaxes.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(), SellerProfileACT.class));
+//            }
+//        });
         buttonSellerList = (Button) view.findViewById(R.id.buttonSellerList);
 
         buttonSellerList.setOnClickListener(new View.OnClickListener() {

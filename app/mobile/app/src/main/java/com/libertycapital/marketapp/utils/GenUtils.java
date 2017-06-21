@@ -391,6 +391,15 @@ public class GenUtils {
         return ArrayAdapter.createFromResource(activity, array, layout);
     }
 
-
+    private void hideKeyboard(Activity activity) {
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            ((InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE)).
+                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
+
+
+
+}
 

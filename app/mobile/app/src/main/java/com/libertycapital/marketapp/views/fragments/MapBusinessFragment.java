@@ -42,6 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmAsyncTask;
+import io.realm.Sort;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,6 +72,9 @@ public class MapBusinessFragment extends Fragment implements PermissionsListener
     private ProgressBar progressBar;
     private OfflineManager offlineManager;
     private OnFragmentInteractionListener mListener;
+    Location myLocation;
+    double longi ;
+    double lati;
 
     public MapBusinessFragment() {
         // Required empty public constructor
@@ -240,6 +244,8 @@ public class MapBusinessFragment extends Fragment implements PermissionsListener
             if (lastLocation != null) {
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation), 16));
 
+
+
             }
 
             locationEngineListener = new LocationEngineListener() {
@@ -249,14 +255,44 @@ public class MapBusinessFragment extends Fragment implements PermissionsListener
                 }
 
                 @Override
-                public void onLocationChanged(Location location) {
+                public void onLocationChanged(final Location location) {
                     if (location != null) {
                         // Move the map camera to where the user location is and then remove the
                         // listener so the camera isn't constantly updating when the user location
                         // changes. When the user disables and then enables the location again, this
                         // listener is registered again and will adjust the camera once again.
                         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location), 16));
-                        storeData(location);
+                         longi = location.getLongitude();
+                        lati = location.getLatitude();
+                        GenUtils.getToastMessage(getContext(),longi + "|" +  lati);
+
+                        mRealm.executeTransaction(new Realm.Transaction() {
+
+                            @Override
+                            public void execute(Realm realm) {
+                                myLocation = location;
+
+                                SellerMDL sellerMDL = realm.where(SellerMDL.class).findAllSorted("createdDate").last();
+
+                                String id = UUID.randomUUID().toString();
+                                LocationMDL locationMDL = realm.createObject(LocationMDL.class, id);
+                                locationMDL.setLatitude(lati);
+
+                                locationMDL.setLongitude(longi);
+                                GenUtils.getToastMessage(getContext(),locationMDL.toString() + "data");
+                                sellerMDL.setLongitude(longi);
+                                sellerMDL.setLatitude(lati);
+                                sellerMDL.setLocationMDL(locationMDL);
+
+
+                            } });
+
+
+                        SellerMDL sellerMDL = mRealm.where(SellerMDL.class).findAllSorted("createdDate").last();
+                        GenUtils.getToastMessage(getContext(), sellerMDL.toString());
+
+
+
                         locationEngine.removeLocationEngineListener(this);
 
                     }
@@ -322,36 +358,43 @@ public class MapBusinessFragment extends Fragment implements PermissionsListener
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
-    private void storeData(final Location location) {
-        realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                SellerMDL sellerMDL = realm.where(SellerMDL.class).findAllSorted("createdDate").last();
-
-                String id = UUID.randomUUID().toString();
-                LocationMDL locationMDL = realm.createObject(LocationMDL.class, id);
-                locationMDL.setLatitude(location.getLatitude());
-                locationMDL.setLongitude(location.getLongitude());
-                sellerMDL.setLocationMDL(locationMDL);
-
-
-            }
-        }, new Realm.Transaction.OnSuccess() {
-            @Override
-            public void onSuccess() {
-
-                GenUtils.getToastMessage(getContext(), "Added successfully");
-
-            }
-        }, new Realm.Transaction.OnError() {
-            @Override
-            public void onError(Throwable error) {
-                GenUtils.getToastMessage(getContext(), error.getMessage());
-            }
-        });
-//        setViewpager(sellerMDL,mViewPager);
-
-    }
+//    private void storeData( Location location) {
+//
+//        realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
+//            @Override
+//            public void execute(Realm realm) {
+//                double longi = location.getLongitude();
+//                double lati = location.getLatitude();
+//                SellerMDL sellerMDL = realm.where(SellerMDL.class).findAllSorted("createdDate").last();
+//
+//                String id = UUID.randomUUID().toString();
+//                LocationMDL locationMDL = realm.createObject(LocationMDL.class, id);
+//                locationMDL.setLatitude(longi);
+////                GenUtils.getToastMessage(getContext() , "" +sellerMDL.getLocationMDL().getLatitude());
+//                locationMDL.setLongitude(location.getLongitude());
+//                sellerMDL.setLocationMDL(locationMDL);
+//
+//
+//            }
+//        }, new Realm.Transaction.OnSuccess() {
+//            @Override
+//            public void onSuccess() {
+//
+//                GenUtils.getToastMessage(getContext(), "Added successfully");
+//
+//
+//
+//
+//            }
+//        }, new Realm.Transaction.OnError() {
+//            @Override
+//            public void onError(Throwable error) {
+//                GenUtils.getToastMessage(getContext(), error.getMessage());
+//            }
+//        });
+////        setViewpager(sellerMDL,mViewPager);
+//
+//    }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

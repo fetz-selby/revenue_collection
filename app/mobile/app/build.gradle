@@ -50,6 +50,13 @@ dependencies {
     compile('com.mapbox.mapboxsdk:mapbox-android-services:2.1.0@aar') {
         transitive = true
     }
+
+//    compile 'com.theartofdev.edmodo:android-image-cropper:2.4.+'
+    compile('com.mikepenz:materialdrawer:5.9.0@aar') {
+        transitive = true
+    }
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
@@ -61,20 +68,17 @@ dependencies {
     compile 'com.afollestad.material-dialogs:core:0.9.4.4'
     compile 'com.afollestad.material-dialogs:commons:0.8.6.1'
     compile 'com.github.clans:fab:1.6.4'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'net.rimoto:intlphoneinput:1.0.1'
     compile 'com.android.volley:volley:1.0.0'
-    compile 'io.realm:android-adapters:2.0.0'
-    compile 'com.google.android.gms:play-services-location:10.2.6'
+    compile 'io.realm:android-adapters:1.4.0'
+    compile 'com.google.android.gms:play-services-location:11.0.1'
     compile 'com.github.quentin7b:android-location-tracker:3.2'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.jakewharton:butterknife:8.6.0'
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
-    compile 'id.zelory:compressor:2.0.0'
-    testCompile 'junit:junit:4.12'
+    compile 'com.evernote:android-job:1.1.11'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-    compile 'com.isseiaoki:simplecropview:1.1.4'
-
-//    compile 'com.theartofdev.edmodo:android-image-cropper:2.4.+'
+    compile 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.3.1'
 }

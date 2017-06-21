@@ -1,6 +1,5 @@
 package com.libertycapital.marketapp.models;
 
-import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -13,37 +12,108 @@ public class SellerMDL extends RealmObject {
     @PrimaryKey
     private String id;
     private String firstname;
-    private String lastname;
+    private String surname;
     private String otherName;
     private String photo;
     private String photoUri;
     private String businessType;
-    private String businessCategory;
     private String landmark;
-    private String lane;
     private UserMDL createdBy;
     private String createdDate;
     private String modifiedDate;
     private String status;
     private String market;
     private String shopType;
-    private String sellerType;
-    private RealmList<ContactMDL> contactMDLs;
-    private RealmList<PaymentMDL> paymentMDLs;
+    private String type;
+    private String sellerCategory;
+    private boolean iSellingOnTheFloor;
+    private boolean isSellingOntheTable;
+    private String mobileNetwork;
+    private String phone;
+    private boolean isMobileMoney;
+    private boolean hasSynced;
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    private double longitude;
+    private double latitude;
     private LocationMDL locationMDL;
 
     public SellerMDL() {
 
     }
 
-    public SellerMDL(String id, String firstname, String lastname, String otherName, String photo, UserMDL createdBy, String createdDate) {
+
+    public SellerMDL(String id, String firstname, String surname, String otherName, String photo, UserMDL createdBy, String createdDate) {
         this.id = id;
         this.firstname = firstname;
-        this.lastname = lastname;
+        this.surname = surname;
         this.otherName = otherName;
         this.photo = photo;
         this.createdBy = createdBy;
         this.createdDate = createdDate;
+    }
+
+    public boolean isHasSynced() {
+        return hasSynced;
+    }
+
+    public void setHasSynced(boolean hasSynced) {
+        this.hasSynced = hasSynced;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public boolean iSellingOnTheFloor() {
+        return iSellingOnTheFloor;
+    }
+
+    public void setiSellingOnTheFloor(boolean iSellingOnTheFloor) {
+        this.iSellingOnTheFloor = iSellingOnTheFloor;
+    }
+
+    public boolean isSellingOntheTable() {
+        return isSellingOntheTable;
+    }
+
+    public void setSellingOntheTable(boolean sellingOntheTable) {
+        isSellingOntheTable = sellingOntheTable;
+    }
+
+    public String getSellerCategory() {
+        return sellerCategory;
+    }
+
+    public void setSellerCategory(String sellerCategory) {
+        this.sellerCategory = sellerCategory;
     }
 
     public String getModifiedDate() {
@@ -71,11 +141,11 @@ public class SellerMDL extends RealmObject {
     }
 
     public String getSellerType() {
-        return sellerType;
+        return type;
     }
 
-    public void setSellerType(String sellerType) {
-        this.sellerType = sellerType;
+    public void setSellerType(String type) {
+        this.type = type;
     }
 
     public String getLandmark() {
@@ -86,28 +156,12 @@ public class SellerMDL extends RealmObject {
         this.landmark = landmark;
     }
 
-    public RealmList<ContactMDL> getContactMDLs() {
-        return contactMDLs;
-    }
-
-    public void setContactMDLs(RealmList<ContactMDL> contactMDLs) {
-        this.contactMDLs = contactMDLs;
-    }
-
     public LocationMDL getLocationMDL() {
         return locationMDL;
     }
 
     public void setLocationMDL(LocationMDL locationMDL) {
         this.locationMDL = locationMDL;
-    }
-
-    public RealmList<PaymentMDL> getPaymentMDLs() {
-        return paymentMDLs;
-    }
-
-    public void setPaymentMDLs(RealmList<PaymentMDL> paymentMDLs) {
-        this.paymentMDLs = paymentMDLs;
     }
 
     public String getOtherName() {
@@ -126,28 +180,12 @@ public class SellerMDL extends RealmObject {
         this.photo = photo;
     }
 
-    public String getBusinessCategory() {
-        return businessCategory;
-    }
-
-    public void setBusinessCategory(String businessCategory) {
-        this.businessCategory = businessCategory;
-    }
-
     public String getSection() {
         return landmark;
     }
 
     public void setSection(String landmark) {
         this.landmark = landmark;
-    }
-
-    public String getLane() {
-        return lane;
-    }
-
-    public void setLane(String lane) {
-        this.lane = lane;
     }
 
     public UserMDL getCreatedBy() {
@@ -190,14 +228,6 @@ public class SellerMDL extends RealmObject {
         this.businessType = businessType;
     }
 
-    public String getBussinessCategory() {
-        return businessCategory;
-    }
-
-    public void setBussinessCategory(String businessCategory) {
-        this.businessCategory = businessCategory;
-    }
-
     public String getId() {
         return id;
     }
@@ -214,20 +244,36 @@ public class SellerMDL extends RealmObject {
         this.firstname = firstname;
     }
 
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
     public String getPhotoUri() {
         return photoUri;
     }
 
     public void setPhotoUri(String photoUri) {
         this.photoUri = photoUri;
+    }
+
+    public String getMobileNetwork() {
+        return mobileNetwork;
+    }
+
+    public void setMobileNetwork(String mobileNetwork) {
+        this.mobileNetwork = mobileNetwork;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public boolean isMobileMoney() {
+        return isMobileMoney;
+    }
+
+    public void setMobileMoney(boolean mobileMoney) {
+        isMobileMoney = mobileMoney;
     }
 
 

@@ -105,43 +105,45 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" scope="TEST" name="runner-0.5" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="espresso-idling-resource-2.2.2" level="project" />
-    <orderEntry type="library" exported="" name="compressor-2.0.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="hamcrest-library-1.3" level="project" />
     <orderEntry type="library" exported="" name="relinker-1.2.2" level="project" />
     <orderEntry type="library" exported="" name="mapbox-android-services-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="mapbox-java-geojson-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="transition-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="lost-2.2.0" level="project" />
-    <orderEntry type="library" exported="" name="play-services-location-10.2.6" level="project" />
+    <orderEntry type="library" exported="" name="materialize-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="rxandroid-2.0.1" level="project" />
     <orderEntry type="library" exported="" name="mapbox-java-services-2.1.0" level="project" />
-    <orderEntry type="library" exported="" name="rxjava-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="reactive-streams-1.0.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="exposed-instrumentation-api-publish-0.5" level="project" />
     <orderEntry type="library" exported="" name="butterknife-annotations-8.6.0" level="project" />
     <orderEntry type="library" exported="" name="fabric-1.3.17" level="project" />
     <orderEntry type="library" exported="" name="retrofit-2.2.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="javax.annotation-api-1.2" level="project" />
+    <orderEntry type="library" exported="" name="materialdrawer-5.9.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-location-11.0.1" level="project" />
     <orderEntry type="library" exported="" name="converter-gson-2.2.0" level="project" />
     <orderEntry type="library" exported="" name="circleimageview-2.1.0" level="project" />
-    <orderEntry type="library" exported="" name="play-services-basement-10.2.6" level="project" />
+    <orderEntry type="library" exported="" name="cat-1.0.5" level="project" />
     <orderEntry type="library" exported="" name="pagerslidingtabstrip-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="fab-1.6.4" level="project" />
-    <orderEntry type="library" exported="" name="play-services-tasks-10.2.6" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="javawriter-2.1.1" level="project" />
     <orderEntry type="library" exported="" name="support-v4-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="support-media-compat-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="mapbox-android-telemetry-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="crashlytics-2.6.8" level="project" />
     <orderEntry type="library" exported="" name="butterknife-8.6.0" level="project" />
+    <orderEntry type="library" exported="" name="android-job-1.1.11" level="project" />
+    <orderEntry type="library" exported="" name="play-services-tasks-11.0.1" level="project" />
     <orderEntry type="library" exported="" name="android-location-tracker-3.2" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="support-vector-drawable-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="support-compat-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-flexibledivider-1.4.0" level="project" />
-    <orderEntry type="library" exported="" name="simplecropview-1.1.4" level="project" />
+    <orderEntry type="library" exported="" name="mapbox-android-navigation-0.3.1" level="project" />
     <orderEntry type="library" exported="" name="libphonenumber-7.7.2" level="project" />
     <orderEntry type="library" exported="" name="gson-2.8.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-basement-11.0.1" level="project" />
     <orderEntry type="library" exported="" name="constraint-layout-1.0.2" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="hamcrest-integration-1.3" level="project" />
     <orderEntry type="library" exported="" name="design-25.3.1" level="project" />
@@ -150,13 +152,15 @@
     <orderEntry type="library" exported="" name="crashlytics-core-2.3.17" level="project" />
     <orderEntry type="library" exported="" name="core-0.9.4.4" level="project" />
     <orderEntry type="library" exported="" name="support-v13-25.3.1" level="project" />
-    <orderEntry type="library" exported="" name="play-services-base-10.2.6" level="project" />
     <orderEntry type="library" exported="" name="intlphoneinput-1.0.1" level="project" />
+    <orderEntry type="library" exported="" name="play-services-base-11.0.1" level="project" />
+    <orderEntry type="library" exported="" name="android-adapters-1.4.0" level="project" />
     <orderEntry type="library" exported="" name="library-1.4.0" level="project" />
     <orderEntry type="library" exported="" name="glide-3.7.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="jsr305-2.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-core-utils-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="support-fragment-25.3.1" level="project" />
+    <orderEntry type="library" exported="" name="rxjava-2.0.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="espresso-core-2.2.2" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="rules-0.5" level="project" />
     <orderEntry type="library" exported="" name="constraint-layout-solver-1.0.2" level="project" />
@@ -164,7 +168,6 @@
     <orderEntry type="library" exported="" name="beta-1.2.5" level="project" />
     <orderEntry type="library" exported="" name="realm-annotations-3.1.3" level="project" />
     <orderEntry type="library" exported="" name="okio-1.11.0" level="project" />
-    <orderEntry type="library" exported="" name="android-adapters-2.0.0" level="project" />
     <orderEntry type="library" exported="" name="answers-1.3.13" level="project" />
     <orderEntry type="library" exported="" name="commons-0.8.6.1" level="project" />
     <orderEntry type="library" exported="" name="okhttp-3.6.0" level="project" />
@@ -173,11 +176,13 @@
     <orderEntry type="library" exported="" name="timber-4.5.1" level="project" />
     <orderEntry type="library" exported="" name="mapbox-android-sdk-5.0.2" level="project" />
     <orderEntry type="library" exported="" name="logging-interceptor-3.6.0" level="project" />
+    <orderEntry type="library" exported="" name="fastadapter-2.5.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="junit-4.12" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="realm-android-library-3.1.3" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="mapbox-java-core-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="animated-vector-drawable-25.3.1" level="project" />
+    <orderEntry type="library" exported="" name="iconics-core-2.8.2" level="project" />
   </component>
 </module>

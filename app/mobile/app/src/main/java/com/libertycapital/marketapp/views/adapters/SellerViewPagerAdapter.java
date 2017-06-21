@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 
 import com.libertycapital.marketapp.views.fragments.BusinessExtraFragment;
 import com.libertycapital.marketapp.views.fragments.ContactDetailsFormFragment;
+import com.libertycapital.marketapp.views.fragments.FinalStepFragment;
 import com.libertycapital.marketapp.views.fragments.MapBusinessFragment;
 import com.libertycapital.marketapp.views.fragments.PersonalDetailsFormFragment;
 import com.libertycapital.marketapp.views.fragments.ShopSellerDetailsFragment;
@@ -20,7 +21,7 @@ public class SellerViewPagerAdapter extends SmartFragmentStatePagerAdapter{
     private SmartFragmentStatePagerAdapter adapterViewPager;
 
 
-    private String tabTitles[] = new String[]{"Personal","Contact", "Business","Extra Charges","Location"};
+    private String tabTitles[] = new String[]{"Personal","Contact", "Business","Location","Submit"};
 
     public SellerViewPagerAdapter(FragmentManager fm) {
 
@@ -44,10 +45,9 @@ public class SellerViewPagerAdapter extends SmartFragmentStatePagerAdapter{
             case 2:
                 return new ShopSellerDetailsFragment();
             case 3:
-                return new BusinessExtraFragment();
-            case 4:
                 return new MapBusinessFragment();
-
+            case 4:
+                return new FinalStepFragment();
 
         }
         return null;

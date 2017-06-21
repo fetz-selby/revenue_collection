@@ -8,6 +8,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
+import com.evernote.android.job.JobManager;
+import com.libertycapital.marketapp.Jobs.DemoJobCreator;
 import com.libertycapital.marketapp.utils.LruBitmapCache;
 
 import io.fabric.sdk.android.Fabric;
@@ -34,6 +36,7 @@ public class AppController extends Application {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
         Realm.init(this);
+        JobManager.create(this).addJobCreator(new DemoJobCreator());
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .name("RealmTrial1.realm")
                 .build();

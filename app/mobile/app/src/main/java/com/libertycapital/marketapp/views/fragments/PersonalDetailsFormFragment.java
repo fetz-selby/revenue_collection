@@ -269,7 +269,7 @@ public class PersonalDetailsFormFragment extends Fragment {
             compressedImage = new File(myDir, fname);
             try {
                 FileOutputStream out = new FileOutputStream(compressedImage);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
                 out.flush();
                 out.close();
                 mCroppedURI = Uri.fromFile(compressedImage);
@@ -325,7 +325,7 @@ public class PersonalDetailsFormFragment extends Fragment {
                 SellerMDL sellerMDL = realm.where(SellerMDL.class).findAllSorted("createdDate").last();
 
                 sellerMDL.setFirstname(editTextFname.getText().toString());
-                sellerMDL.setLastname(editTextLname.getText().toString());
+                sellerMDL.setSurname(editTextLname.getText().toString());
                 if (mCroppedURI != null) {
                     sellerMDL.setPhotoUri(mCroppedURI.getPath());
                 }
