@@ -6,6 +6,7 @@ var express = require('express'),
     port = process.env.PORT || 8002,
     mongoose = require('mongoose'),
     modelInitializer = require('./services/model_service'),
+    helper = require('./services/helper_service'),
     logger = require('morgan'),
     expressValidator = require('express-validator'),
     dbConfig = require('./config');
@@ -22,13 +23,15 @@ mongoose.connect('mongodb://'+dbConfig.config.db_instance);
 //Init Schema Models
 var models = require('./services/model_service');
 
-//uncomment to reload district to db
-// districtService.loadDistricts();
+//uncomment to reload markets to db
+// helper.loadMarkets();
 
 //Instantiating all routes
 var agentsRoute     = require('./routes/agents_router')(pool),
+    analyticsRoute  = require('./routes/analytics_router')(pool),
     authRoute       = require('./routes/auth_router')(pool),
-    peopleRoute     = require('./routes/people_router')(pool),
+    marketsRoute    = require('./routes/markets_router')(pool),
+    sellersRoute    = require('./routes/sellers_router')(pool),
     usersRoute      = require('./routes/users_router')(pool);
     paymentsRoute   = require('./routes/payments_router')(pool);
 
@@ -41,12 +44,12 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cookieParser());
 app.use(expressValidator([]));
-app.use(session({resave:true, saveUninitialized: true, 
+app.use(session({resave:true, saveUninitialized: true,
                 secret: 'thequickbrownfoxjumpedoverthelazydogs',
                 cookieName: 'session',
-                duration: 30*60*1000, 
-                activeDuration: 5*60*1000, 
-                httpOnly: true, 
+                duration: 30*60*1000,
+                activeDuration: 5*60*1000,
+                httpOnly: true,
                 cookie: {secure: false }}));
 
 //CORS enabling
@@ -70,8 +73,10 @@ app.use(function (req, res, next) {
 
 app.use('/eghana/revenue/api/auth', authRoute.router);
 app.use('/eghana/revenue/api/agents', agentsRoute.router);
+app.use('/eghana/revenue/api/analytics', analyticsRoute.router);
+app.use('/eghana/revenue/api/markets', marketsRoute.router);
 app.use('/eghana/revenue/api/users', usersRoute.router);
-app.use('/eghana/revenue/api/people', peopleRoute.router);
+app.use('/eghana/revenue/api/sellers', sellersRoute.router);
 app.use('/eghana/revenue/api/payments', paymentsRoute.router);
 
 app.get('/eghana', function(req, res){
@@ -100,11 +105,11 @@ app.listen(port, function(){
 process.on("unhandledRejection", function(reason, p){
     console.log("Unhandled", p); // log all your errors, "unsuppressing" them.
 //    throw(reason);
-    
-}); 
+
+});
 
 var initAllEvents = function(){
-    
+
 }
 
 module.exports = app;

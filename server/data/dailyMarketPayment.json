@@ -1,0 +1,17 @@
+[
+  {
+    "dailyPaymentType": "sellingOnTable",
+    "Cost": 1,
+    "reviewYear": 2017
+  },
+  {
+    "dailyPaymentType": "sellingOntheFloor",
+    "Cost": 0.5,
+    "reviewYear": 2017
+  },
+  {
+    "dailyPaymentType": "shops",
+    "Cost": 2,
+    "reviewYear": 2017
+  }
+]

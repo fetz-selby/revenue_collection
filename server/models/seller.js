@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var mongoosePaginate = require('mongoose-paginate');
 
-var peopleSchema = new Schema({
+var sellerSchema = new Schema({
+	uuid			: String,
 	firstname		: String,
 	surname			: String,
 	othernames 		: String,
@@ -10,7 +11,8 @@ var peopleSchema = new Schema({
 	section			: String,
 	lane			: String,
 	category		: String,
-	type 			: String, 
+	type 			: String,
+	sellingSpot		: String,
 	mobileMoney		: {
 		network 	: String,
 		number 		: String
@@ -21,5 +23,5 @@ var peopleSchema = new Schema({
 	status 			: { type: String, default: 'A' }
 });
 
-peopleSchema.plugin(mongoosePaginate);
-module.exports = mongoose.model('People', peopleSchema);
+sellerSchema.plugin(mongoosePaginate);
+module.exports = mongoose.model('Seller', sellerSchema);
